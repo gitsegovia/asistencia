@@ -5,7 +5,7 @@ import path from "path";
 import cors from "cors";
 
 //CONFIG
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 //Init sequelize
 import models from "./models";
@@ -21,16 +21,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cors({ credentials: true, origin: true }));
 
-
 //Routes
 app.get("/testing", (req, res) => {
   res.json("hola mundo");
 });
 
-
-app.get('/', function (req, res) {
-  res.send('Hello World')
-})
+app.get("/", function (req, res) {
+  res.send("Hello World");
+});
 
 //TODO ruta creacion providers
 
@@ -40,8 +38,8 @@ console.log("port: ", PORT);
 const alter = false;
 const force = false;
 
-models.sequelize.sync({ alter, force}).then(() => {
-  app.listen(PORT, function() {
+models.sequelize.sync({ alter, force }).then(() => {
+  app.listen(PORT, function () {
     console.log("Running!!! Port: ", PORT);
   });
 });

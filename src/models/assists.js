@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Assists extends Model {
     /**
@@ -13,36 +11,40 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Assists.belongsTo(models.Employee, {
         foreignKey: {
-          name: 'employeeId',
-          field: 'employeeId'
+          name: "employeeId",
+          field: "employeeId",
         },
-        as: 'Employees',
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        as: "Employees",
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       });
     }
-  };
-  Assists.init({
-    id: {
-      type: DataTypes.UUID,
-      allowNull: null,
-      defaultValue: DataTypes.UUIDV4
+  }
+  Assists.init(
+    {
+      id: {
+        primaryKey: true,
+        type: DataTypes.UUID,
+        allowNull: null,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      entryTime: {
+        type: DataTypes.TIME,
+        allowNull: true,
+      },
+      departureTime: {
+        type: DataTypes.TIME,
+        allowNull: true,
+      },
+      date: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
     },
-    entryTime: {
-      type: DataTypes.TIME,
-      allowNull: tru
-    },
-    departureTime: {
-      type: DataTypes.TIME,
-      allowNull: true
-    },
-    date: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
-
-    sequelize,
-    modelName: 'Assists',
-  });
+    {
+      sequelize,
+      modelName: "Assists",
+    }
+  );
   return Assists;
 };

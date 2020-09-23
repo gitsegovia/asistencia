@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class Bussiness extends Model {
     /**
@@ -13,40 +11,44 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Bussiness.hasMany(models.Employee, {
         foreignKey: {
-          name: 'bussinessId',
-          field: 'bussinessId'
+          name: "bussinessId",
+          field: "bussinessId",
         },
-        as: 'employees',
-        onDelete: 'CASCADE',
-        onUpdate: 'CASCADE'
-      })
+        as: "employees",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
-  };
-  Bussiness.init({
-    id: {
-      type: DataTypes.UUID,
-      allowNull: false,
-      defaultValue: DataTypes.UUIDV4
+  }
+  Bussiness.init(
+    {
+      id: {
+        primaryKey: true,
+        type: DataTypes.UUID,
+        allowNull: false,
+        defaultValue: DataTypes.UUIDV4,
+      },
+      rif: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      firstName: {
+        type: DataTypes.STRING,
+        allowNull: null,
+      },
+      direction: {
+        type: DataTypes.STRING,
+        allowNull: null,
+      },
+      logo: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
-    rif: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: null
-    },
-    direction:  {
-      type: DataTypes.STRING,
-      allowNull: null
-    },
-    logo: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-
-    sequelize,
-    modelName: 'Bussiness',
-    });
-return Bussiness;
+    {
+      sequelize,
+      modelName: "Bussiness",
+    }
+  );
+  return Bussiness;
 };
