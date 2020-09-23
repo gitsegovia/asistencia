@@ -1,0 +1,44 @@
+
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "buildx": "next build",
+    "build": "babel-node src/index.js -d dist",
+    "dev": "nodemon --exec babel-node src/index.js",
+    "start": "cross-env NODE_ENV=production nodemon src/index.js"
+  },
+  "husky": {
+    "hooks": {}
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "sequelize-mock": "^0.10.2"
+  },
+  "dependencies": {
+    "@babel/core": "^7.10.4",
+    "@babel/node": "^7.10.4",
+    "@babel/preset-env": "^7.10.4",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
+    "crypto": "^1.0.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "multer": "^1.4.2",
+    "nodemailer": "^6.4.10",
+    "path": "^0.12.7",
+    "pg": "^7.17.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.21.3",
+    "uuid": "^8.2.0"
+  }
+}
