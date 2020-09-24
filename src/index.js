@@ -36,7 +36,7 @@ console.log("port: ", PORT);
 
 //Running Server sequelize config
 const alter = false;
-const force = false;
+const force = true;
 
 models.sequelize.sync({ alter, force }).then(() => {
   app.listen(PORT, function () {
