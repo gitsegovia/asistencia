@@ -7,6 +7,9 @@ import cors from "cors";
 //CONFIG
 const PORT = process.env.PORT || 3000;
 
+//Routes
+import Routes from "./routes";
+
 //Init sequelize
 import models from "./models";
 
@@ -25,6 +28,8 @@ app.use(cors({ credentials: true, origin: true }));
 app.get("/testing", (req, res) => {
   res.json("hola mundo");
 });
+
+app.use(Routes);
 
 app.get("/", function (req, res) {
   res.send("Hello World");
