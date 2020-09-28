@@ -93,38 +93,38 @@ router.delete('/bussiness', (req, res) => {
     return res.json({resp: 'Delete bussiness'})
 })
 router.delete('/bussiness/:bussinessId', (req, res) => {
-    let value= req.params.bussinessId;
-    res.json('Delete bussiness Id:'+value);
+    req.params;
+    res.json(req.params);
 })
 
 //---Schedule routes
-router.get('/shedule', (req, res) => {
+router.get('/schedule', (req, res) => {
     return res.json({resp: 'GET shedule'})
 })
-router.get('/shedule/:sheduleId', (req, res) => {
+router.get('/schedule/:scheduleId', (req, res) => {
     req.params;
     res.json(req.params);
 })
-router.put('/shedule', (req, res) => {
-    return res.json({resp: 'GET shedule'})
+router.put('/schedule', (req, res) => {
+    return res.json({resp: 'GET schedule'})
 })
-router.put('/shedule/:sheduleId', (req, res) => {
+router.put('/schedule/:scheduleId', (req, res) => {
     req.params;
     res.json(req.params);
 })
-router.post('/shedule', (req, res) => {
-    return res.json({resp: 'POST shedule'})
+router.post('/schedule', (req, res) => {
+    return res.json({resp: 'POST schedule'})
 })
-router.post('/shedule/:sheduleId', (req, res) => {
-    let value = req.params.sheduleId;
+router.post('/schedule/:scheduleId', (req, res) => {
+    let value = req.params.scheduleId;
     res.json('Post shodule ID:' +value);
 })
-router.delete('/shedule', (req, res) => {
-    return res.json({resp: 'POST shedule'})
+router.delete('/schedule', (req, res) => {
+    return res.json({resp: 'Delete shedule'})
 })
-router.delete('/shedule/:sheduleId', (req, res) => {
-    let value = req.params.sheduleId;
-    res.json('Post shodule ID:' +value);
+router.delete('/schedule/:scheduleId', (req, res) => {
+    let value = req.params.scheduleId;
+    res.json('Delete schodule ID:' +value);
 })
 
 module.exports = router
