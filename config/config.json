@@ -13,6 +13,13 @@
     "host": "127.0.0.1",
     "dialect": "postgres"
   },
+  "joneikel": {
+    "username": "joneikel",
+    "password": "0000",
+    "database": "sap",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
+  },
   "test": {
     "username": "root",
     "password": null,

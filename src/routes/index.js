@@ -3,10 +3,6 @@ import { json } from 'body-parser';
 
 const router = Router()
 
-router.get("/hola", (req, res) => {
-    return res.json({respo: 'hola'})
-})
-
 //---Users routes
 router.get('/user', (req, res) => {
     return res.json({resp: 'users'})
@@ -125,6 +121,126 @@ router.delete('/schedule', (req, res) => {
 router.delete('/schedule/:scheduleId', (req, res) => {
     let value = req.params.scheduleId;
     res.json('Delete schodule ID:' +value);
+})
+
+//--- Status rouetes
+router.get('/status', (req, res) => {
+    return res.json({resp: 'GET Status'})
+})
+router.get('/status/:statusId', (req, res) => {
+    let value = req.params.statusId;
+    res.json('Get status ID:' + value);
+})
+router.put('/status', (req, res) => {
+    return res.json({resp: 'Update Status'})
+})
+router.put('/status/:statusId', (req, res) => {
+    let value = req.params.statusId;
+    res.json('Update status ID:' + value);
+})
+router.post('/status', (req, res) => {
+    return res.json({resp: 'Post Status'})
+})
+router.post('/status/:statusId', (req, res) => {
+    let value = req.params.statusId;
+    res.json('Post status ID:' + value);
+})
+router.delete('/status', (req, res) => {
+    return res.json({resp: 'DELETE Status'})
+})
+router.delete('/status/:statusId', (req, res) => {
+    let value = req.params.statusId;
+    res.json('Delete status ID:' + value);
+})
+
+//---Assists routes
+router.get('/assists', (req, res) => {
+    return res.json({resp: 'GET assists'})
+})
+router.get('/assists/:assistsId', (req, res) => {
+    let value = req.params.assistsId;
+    res.json('Get assists ID:' + value);
+})
+router.put('/assists', (req, res) => {
+    return res.json({resp: 'Update assists'})
+})
+router.put('/assists/:assistsId', (req, res) => {
+    let value = req.params.assistsId;
+    res.json('Update assists ID:' + value);
+})
+router.post('/assists', (req, res) => {
+    return res.json({resp: 'Post assists', message: req.body || 'No Body'})
+})
+router.post('/assists/:assistsId', (req, res) => {
+    let value = req.params.assistsId;
+    res.json('Post assists ID:' + value);
+})
+router.delete('/assists', (req, res) => {
+    return res.json({resp: 'Delete assists'})
+})
+router.delete('/assists/:assistsId', (req, res) => {
+    let value = req.params.assistsId;
+    res.json('Delete assists ID:' + value);
+})
+
+//---Position routes
+router.get('/position', (req, res) => {
+    return res.json({ resp: 'Get position'})
+})
+router.get('/position/:positionId', (req, res) => {
+    let value = req.params.positionId;
+    res.json('Get position ID:' + value);
+})
+router.put('/position', (req, res) => {
+    return res.json({ resp: 'Update position'})
+})
+router.put('/position/:positionId', (req, res) => {
+    let value = req.params.positionId;
+    res.json('Update position ID:' + value);
+})
+router.post('/position', (req, res) => {
+    return res.json({ resp: 'Post position', message: req.body.message || 'No body'})
+})
+router.post('/position/:positionId', (req, res) => {
+    let value = req.params.positionId;
+    res.json('Post position ID:' + value);
+})
+router.delete('/position', (req, res) => {
+    return res.json({ resp: 'Delete position'})
+})
+router.delete('/position/:positionId', (req, res) => {
+    let value = req.params.positionId;
+    res.json('Delete position ID:' + value);
+})
+
+//---Roles routes
+router.get('/roles', (req, res) => {
+    return res.json({resp: 'Get roles'})
+})
+router.get('/roles/:rolesId', (req, res) => {
+    let value = req.params.rolesId;
+    res.json('Get roles ID:'+ value);
+})
+router.put('/roles', (req, res) => {
+    return res.json({resp: 'Update roles'})
+})
+router.put('/roles/:rolesId', (req, res) => {
+    let value = req.params.rolesId;
+    res.json('Update roles ID:'+ value);
+})
+router.post('/roles', (req, res) => {
+    return res.json({resp: 'Post roles', message: req.body.message || 'No body'})
+})
+router.post('/roles/:rolesId', (req, res) => {
+    let value = req.params.rolesId;
+    res.json('Post roles ID:'+ value);
+})
+router.delete('/roles', (req, res) => {
+    return res.json({resp: 'Delete roles'})
+})
+router.delete('/roles/:rolesId', (req, res) => {
+    let value = req.params.rolesId;
+    res.json('Delete roles ID:'+ value);
 })
 
 module.exports = router
