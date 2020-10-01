@@ -1,12 +1,12 @@
 import {Router} from 'express';
 import { json } from 'body-parser';
+import { Methods } from '../methods';
 
 const router = Router()
 
 //---Users routes
-router.get('/user', (req, res) => {
-    return res.json({resp: 'users'})
-})
+router.get('/user', Methods.users)
+
 router.get('/user/:userId', (req, res) => {
     req.params;
     res.json(req.params);
@@ -14,13 +14,10 @@ router.get('/user/:userId', (req, res) => {
 router.put('/user', (req, res) => {
     return res.json({resp: 'Update users'})
 })
-router.put('/user/:userId', (req, res) => {
-    req.params;
-    res.json(req.params);
-})
-router.post('/user', (req, res) =>{
-    return res.json({mensaje: req.body})
-})
+router.put('/user/:userId', Methods.updateUser)
+
+router.post('/user', Methods.createUser)
+
 router.post('/user/:userId', (req, res) => {
     req.params;
     res.json(req.params);
@@ -28,10 +25,7 @@ router.post('/user/:userId', (req, res) => {
 router.delete('/user', (req, res) => {
     return res.json({resp: 'Delete users'})
 })
-router.delete('/user/:userId', (req, res) => {
-    req.params;
-    res.json(req.params);    
-})
+router.delete('/user/:userId', Methods.deleteUser)
 
 //---Emploees routes
 router.get('/employee', (req, res) => {
@@ -214,9 +208,7 @@ router.delete('/position/:positionId', (req, res) => {
 })
 
 //---Roles routes
-router.get('/roles', (req, res) => {
-    return res.json({resp: 'Get roles'})
-})
+router.get('/roles', Methods.roles)
 router.get('/roles/:rolesId', (req, res) => {
     let value = req.params.rolesId;
     res.json('Get roles ID:'+ value);
@@ -224,23 +216,12 @@ router.get('/roles/:rolesId', (req, res) => {
 router.put('/roles', (req, res) => {
     return res.json({resp: 'Update roles'})
 })
-router.put('/roles/:rolesId', (req, res) => {
-    let value = req.params.rolesId;
-    res.json('Update roles ID:'+ value);
-})
-router.post('/roles', (req, res) => {
-    return res.json({resp: 'Post roles', message: req.body.message || 'No body'})
-})
+router.put('/roles/:rolesId', Methods.updateRole)
+router.post('/roles', Methods.createRole)
 router.post('/roles/:rolesId', (req, res) => {
     let value = req.params.rolesId;
     res.json('Post roles ID:'+ value);
 })
-router.delete('/roles', (req, res) => {
-    return res.json({resp: 'Delete roles'})
-})
-router.delete('/roles/:rolesId', (req, res) => {
-    let value = req.params.rolesId;
-    res.json('Delete roles ID:'+ value);
-})
+router.delete('/roles/:rolesId', Methods.deleteRole)
 
 module.exports = router
