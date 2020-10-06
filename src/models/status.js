@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Status.hasMany(models.User, {
+/*      Status.hasMany(models.User, {
         foreignKey: {
           name: "statusId",
           field: "statusId",
@@ -36,6 +36,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
+ */
     }
   }
   Status.init(
