@@ -63,20 +63,6 @@ router.delete('/schedule', (req, res) => {
 })
 router.delete('/schedule/:scheduleId', Methods.deleteSchedule);
 
-//--- Status rouetes
-router.get('/status', Methods.status);
-
-router.get('/status/:statusId', Methods.statusId);
-
-router.put('/status/:statusId', Methods.updateStatus);
-
-router.post('/status', Methods.createStatus);
-
-router.delete('/status', (req, res) => {
-    return res.json({ resp: 'DELETE Status' })
-})
-router.delete('/status/:statusId', Methods.deleteStatus);
-
 //---Assists routes
 router.get('/assists', Methods.assists);
 
@@ -108,12 +94,12 @@ router.delete('/position/:positionId', Methods.deletePosition);
 //---Roles routes
 router.get('/roles', Methods.roles);
 
-router.get('/roles/:rolesId', Methods.roleId);
+router.get('/roles/:roleId', Methods.roleId);
 
-router.put('/roles/:rolesId', Methods.updateRole);
+router.put('/roles/:roleId', Methods.updateRole);
 
 router.post('/roles', Methods.createRole);
 
-router.delete('/roles/:rolesId', Methods.deleteRole);
+router.delete('/roles/:roleId', Methods.deleteRole);
 
 module.exports = router

@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-/*      Bussiness.hasMany(models.Employee, {
+      Bussiness.hasMany(models.Employee, {
         foreignKey: {
           name: "bussinessId",
           field: "bussinessId",
@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
-  */
+  
     }
   }
   Bussiness.init(
@@ -35,11 +35,11 @@ module.exports = (sequelize, DataTypes) => {
       },
       firstName: {
         type: DataTypes.STRING,
-        allowNull: null,
+        allowNull: true,
       },
       direction: {
         type: DataTypes.STRING,
-        allowNull: null,
+        allowNull: true,
       },
       logo: {
         type: DataTypes.STRING,

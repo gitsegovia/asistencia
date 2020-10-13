@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-  /*    Employee.belongsTo(models.Bussiness, {
+      Employee.belongsTo(models.Bussiness, {
         foreignKey: {
           name: "bussinessId",
           field: "bussinessId",
@@ -36,15 +36,6 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
-      Employee.belongsTo(models.Status, {
-        foreignKey: {
-          name: "statusId",
-          field: "statusId",
-        },
-        as: "status",
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-      });
       Employee.hasMany(models.Assists, {
         foreignKey: {
           name: "employeeId",
@@ -54,7 +45,6 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
-    */
     }
   }
   Employee.init(
@@ -85,6 +75,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+  /* --------------------------------------------
+    STATUS: [Active, Inactive, Suspended]
+  --------------------------------------------- */
+      status: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "Active"
+      }
     },
     {
       sequelize,
