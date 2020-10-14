@@ -79,7 +79,7 @@ export const Methods = {
       user,
       password
     } = req.body;
-    const id = req.params.userId;
+    const { id: userId } = req.params;
     try {
       const userData = await db.User.findOne({ where: { id } });
       if (userData) {
