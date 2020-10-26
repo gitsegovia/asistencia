@@ -388,7 +388,9 @@ export const Methods = {
       surname,
       identification,
       firm,
-      photo } = req.body;
+      photo=null } = req.body;
+
+
     try {
       const employeeData = await db.Employee.create({
         firstName,
