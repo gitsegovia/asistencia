@@ -272,13 +272,13 @@ export const Methods = {
       data: null,
       token: null
     };
-    const { firstName, rif, diretion, logo } = req.body;
+    const { firstName, rif, direction, logo } = req.body;
     try {
       const bussinessData = await db.Bussiness.create({
         firstName,
         rif,
         logo,
-        diretion
+        direction
       });
       RESPONSE.error = false;
       RESPONSE.msg = `Registro de bussiness ${bussinessData.firstName} Exitoso`;
