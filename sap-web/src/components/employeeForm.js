@@ -6,6 +6,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import axios from 'axios';
+import {baseURL} from '../utils/axios';
+import { Button, FormHelperText } from "@material-ui/core";
+import Alert from './Alert';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,73 +26,68 @@ const useStyles = makeStyles((theme) => ({
       button: {
         margin: theme.spacing(1),
       },
+
     },
   },
 }));
 
 export default function EmployeeForm() {
-  const [form, setForm] = useState({
-    firstName: '',
-    surName: '',
-    identification: '',
-    firm: '',
-    photo: '',   
-  })
-  const [formError, setFormError] = useState({
-    firstName: '',
-    surName: '',
-    identification: '',
-    firm: '',
-    photo: '',   
-  })
-
-  const [bussiness, setBusssiness] = useState('');
+  const [form, setForm] = useState({ firstName: '', surName: '', identification: '', firm: '', photo: '', bussiness: ''})
+  const [formError, setFormError] = useState({ firstName: '', surName: '', identification: '', firm: '', photo: '', bussiness: ''})
+  const [bussiness, setBussiness] = useState('');
   const [renderBussiness, setRenderBussiness] = useState([]);
+  const [failed, setFailed] = useState(null);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     let submit = true;
+    const errors = {
+      firstName: (form.firstName!=='') ? '' : 'Ingrese su nombre', 
+      surName:   (form.surName!=='')  ? '' : 'Ingrese su apellido',
+      identification:   (form.identification!=='') ? '' : 'Ingrese su cedula',
+      firm: (form.firm !== '') ? '' : 'Ingrese firma',
+      photo: (form.photo !== '') ? '' : 'Ingrese foto',
+      bussiness: form.bussiness !== '' ? '' : 'Seleccione la empresa'
+    }
 
-    if(form.firstName===''){
-      setFormError({
-        ...formError,
-        firstName: 'Ingrese su nombre'
-      });
-      submit=false;
-    }
-    if(form.surname===''){
-      setFormError({
-        ...formError,
-        surName: 'Ingrese su apellido'
-      });
-      submit=false;
-    }
+    setFormError({
+      ...formError,
+      ...errors
+    });
+
+    submit = !Object.keys(errors).map(error => errors[error] === '').includes(false);
 
     let data = {
-      ...form,
-      bussiness
+      ...form 
     }
     if(submit){
       console.log(form);
       try {
-        const resp = await axios.post('http://locahost:3002/employee', data);  
+        const resp = await axios.post(baseURL+'/employee', data);  
         if(resp.data.error){
-          console.log('mensaje de error');
+          setFailed(resp.data.error ? "yes" : "no");
+          console.log('Mensaje de error');
           return;
         }
-        console.log('mensaje de guardo');
+        console.log('Mensaje de guardo');
+ 
+        resetForm();
       } catch (error) {
+        setFailed("yes");
         console.log('Error en conexion');
           return;
       }
-    }
+    } 
+  }
+
+  const resetForm = () => {
     setForm({
       firstName: '',
       surName: '',
       identification: '',
       firm: '',
-      photo: '',   
+      photo: '',
+      bussiness: ''   
     });
     setFormError({
       firstName: '',
@@ -97,16 +95,15 @@ export default function EmployeeForm() {
       identification: '',
       firm: '',
       photo: '',   
+      bussiness: ''
     });
   }
 
   const classes = useStyles();
 
   const handleChange = (e) => {
-    console.log(form);
     const value = e.target.value;
     const name = e.target.name;
-    console.log(name, value);
     setForm({
       ...form,
       [name]: value
@@ -116,12 +113,11 @@ export default function EmployeeForm() {
   const handleChangeSelect = (e) => {
     const value = e.target.value;
     const name = e.target.name;
-    console.log(name, value);
-    setBusssiness(value);
+    setBussiness(value);
   };
 
   async function consultaBasedatos(){
-    const response = await axios.get('http://localhost:3002/bussiness');
+    const response = await axios.get(baseURL+"/bussiness");
     console.log(response);
     let consulta = response.data;
     if(consulta.error===false){
@@ -135,6 +131,10 @@ export default function EmployeeForm() {
 
   return (
     <React.Fragment>
+      <div>
+        {failed === 'no' && <Alert color="#038DEF">¡Registro exitoso!</Alert>}
+        {failed === 'yes' && <Alert color="#980d14">¡Fallo el registro!</Alert>}
+      </div>
      <form
        onSubmit={handleSubmit}
        className={classes.root}
@@ -150,10 +150,10 @@ export default function EmployeeForm() {
         label="Nombre"
         variant="outlined"
         size="small"
+        required
         value={form.firstName}
         onChange={handleChange}
-        required
-        error={formError.firstName!=='' ? true : false}
+        error={form.firstName==='' && formError.firstName}
         helperText={formError.firstName}
       />
       <TextField
@@ -165,7 +165,7 @@ export default function EmployeeForm() {
         required
         value={form.surname}
         onChange={handleChange}
-        error={formError.surName !== '' ? true : false}
+        error={form.surName==='' && formError.surName}
         helperText={formError.surName}
       />
       <TextField
@@ -176,7 +176,7 @@ export default function EmployeeForm() {
         name="identification"
         value={form.identification}
         onChange={handleChange}
-        error={formError.identification !== '' ? true : false}
+        error={form.identification==='' && formError.identification}
         helperText={formError.identification}
       />
       <div />
@@ -188,7 +188,7 @@ export default function EmployeeForm() {
         size="small"
         value={form.firm}
         onChange={handleChange}
-        error={formError.firm !== '' ? true : false}
+        error={form.firm === '' && formError.firm}
         helperText={formError.firm}
         />
 
@@ -198,28 +198,34 @@ export default function EmployeeForm() {
         name="photo" 
         label="Foto" 
         variant="outlined" 
-        size="small" />
+        size="small" 
+        value={form.photo}
+        onChange={handleChange}
+        error={form.photo === '' && formError.photo}
+        helperText={formError.photo}
+        />
         </FormControl>
-        <FormControl >
+
+      <FormControl >
         <InputLabel id="label-empresa">Empresa</InputLabel>
       <Select
         labelId="label-empresa"
         id="bussiness"        
         name="bussiness"
         size="small"
-        value={bussiness}
-        onChange={handleChangeSelect}
+        value={form.bussiness}
+        onChange={handleChange}
+        error={form.bussiness === '' && formError.bussiness}
       >
         {renderBussiness.map((item)=>(
-          <MenuItem value={item.id}>{item.firstName}</MenuItem>
+          <MenuItem value={item.id} key={item.id}>{item.firstName}</MenuItem>
         ))}        
       </Select>
+        <FormHelperText error>{formError.bussiness}</FormHelperText>
       </FormControl>
-      <div>
-      <input type="submit" 
-             value="Submit"
-              />
-      </div>
+      <Button type="submit" onClick={(e) => handleSubmit(e)}>
+        Submit
+      </Button>
      </form>
     </React.Fragment>
   );
