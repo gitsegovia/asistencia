@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EmployeeForm() {
-  const [form, setForm] = useState({ firstName: '', surName: '', identification: '', firm: '', photo: '', bussiness: ''})
-  const [formError, setFormError] = useState({ firstName: '', surName: '', identification: '', firm: '', photo: '', bussiness: ''})
+  const [form, setForm] = useState({ firstName: '', surname: '', identification: '', firm: '', photo: '', bussiness: ''})
+  const [formError, setFormError] = useState({ firstName: '', surname: '', identification: '', firm: '', photo: '', bussiness: ''})
   const [bussiness, setBussiness] = useState('');
   const [renderBussiness, setRenderBussiness] = useState([]);
   const [failed, setFailed] = useState(null);
@@ -43,7 +43,7 @@ export default function EmployeeForm() {
     let submit = true;
     const errors = {
       firstName: (form.firstName!=='') ? '' : 'Ingrese su nombre', 
-      surName:   (form.surName!=='')  ? '' : 'Ingrese su apellido',
+      surName:   (form.surname!=='')  ? '' : 'Ingrese su apellido',
       identification:   (form.identification!=='') ? '' : 'Ingrese su cedula',
       firm: (form.firm !== '') ? '' : 'Ingrese firma',
       photo: (form.photo !== '') ? '' : 'Ingrese foto',
@@ -83,7 +83,7 @@ export default function EmployeeForm() {
   const resetForm = () => {
     setForm({
       firstName: '',
-      surName: '',
+      surname: '',
       identification: '',
       firm: '',
       photo: '',
@@ -91,7 +91,7 @@ export default function EmployeeForm() {
     });
     setFormError({
       firstName: '',
-      surName: '',
+      surname: '',
       identification: '',
       firm: '',
       photo: '',   
@@ -132,7 +132,7 @@ export default function EmployeeForm() {
   return (
     <React.Fragment>
       <div>
-        {failed === 'no' && <Alert color="#038DEF">¡Registro exitoso!</Alert>}
+        {failed === 'no' && <Alert color="#038DEF">¡Registro Exitoso!</Alert>}
         {failed === 'yes' && <Alert color="#980d14">¡Fallo el registro!</Alert>}
       </div>
      <form
@@ -157,16 +157,16 @@ export default function EmployeeForm() {
         helperText={formError.firstName}
       />
       <TextField
-        id="surName"
-        name="surName"
+        id="surname"
+        name="surname"
         label="Apellido"
         variant="outlined"
         size="small"
         required
         value={form.surname}
         onChange={handleChange}
-        error={form.surName==='' && formError.surName}
-        helperText={formError.surName}
+        error={form.surname==='' && formError.surname}
+        helperText={formError.surname}
       />
       <TextField
         id="identification"

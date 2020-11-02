@@ -57,15 +57,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       firstName: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       surname: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       identification: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
       },
       firm: {
         type: DataTypes.STRING,
