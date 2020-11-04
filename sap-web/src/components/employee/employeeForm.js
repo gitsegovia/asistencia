@@ -6,9 +6,9 @@ import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import axios from 'axios';
-import {baseURL} from '../utils/axios';
+import {baseURL} from '../../utils/axios';
 import { Button, FormHelperText } from "@material-ui/core";
-import Alert from './Alert';
+import Alert from '../Alert';
 
 const useStyles = makeStyles((theme) => ({
   root: {

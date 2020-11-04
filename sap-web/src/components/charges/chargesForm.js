@@ -27,9 +27,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function BussinessForm() {
-  const [form, setForm] = useState({ firstName: '', direction: '', logo: ''})
-  const [formError, setFormError] = useState({ firstName: '', direction: '', logo: ''})
+export default function ChargesForm() {
+  const [form, setForm] = useState({ name: ''})
+  const [formError, setFormError] = useState({ name: ''})
  const [bussiness, setBussiness] = useState('');
   const [failed, setFailed] = useState(null);
 
@@ -37,9 +37,7 @@ export default function BussinessForm() {
     event.preventDefault();
     let submit = true;
     const errors = {
-      firstName: (form.firstName!=='') ? '' : 'Ingrese su nombre', 
-      direction:   (form.direction!=='')  ? '' : 'Ingrese direccion',
-      logo:   (form.logo!=='') ? '' : 'Ingrese logo'
+      name: (form.name!=='') ? '' : 'Ingrese su nombre', 
     }
 
     setFormError({
@@ -55,7 +53,7 @@ export default function BussinessForm() {
     if(submit){
       console.log(form);
       try {
-        const resp = await axios.post(baseURL+'/bussiness', data);  
+        const resp = await axios.post(baseURL+'/position', data);  
         if(resp.data.error){
           setFailed(resp.data.error ? "yes" : "no");
           console.log('Mensaje de error');
@@ -74,14 +72,10 @@ export default function BussinessForm() {
 
   const resetForm = () => {
     setForm({
-      firstName: '',
-      direction: '',
-      logo: ''
+      name: ''
     });
     setFormError({
-      firstName: '',
-      direction: '',
-      logo: ''
+      name: ''
     });
   }
 
@@ -111,41 +105,18 @@ export default function BussinessForm() {
        style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
       
      >
-      <h1>Registro de Empresa</h1>
+      <h1>Registro de Cargo</h1>
       <TextField
-        id="firstName"
-        name="firstName"
-        label="Nombre"
+        id="name"
+        name="name"
+        label="Cargo"
         variant="outlined"
         size="small"
         required
-        value={form.firstName}
+        value={form.name}
         onChange={handleChange}
-        error={form.firstName==='' && formError.firstName}
-        helperText={formError.firstName}
-      />
-      <TextField
-        id="direction"
-        name="direction"
-        label="Direccion"
-        variant="outlined"
-        size="small"
-        required
-        value={form.direction}
-        onChange={handleChange}
-        error={form.direction==='' && formError.direction}
-        helperText={formError.direction}
-      />
-      <TextField
-        id="logo"
-        label="Logo"
-        variant="outlined"
-        size="small"
-        name="logo"
-        value={form.logo}
-        onChange={handleChange}
-        error={form.logo==='' && formError.logo}
-        helperText={formError.logo}
+        error={form.name==='' && formError.name}
+        helperText={formError.name}
       />
       
       <Button type="submit" onClick={(e) => handleSubmit(e)}>
