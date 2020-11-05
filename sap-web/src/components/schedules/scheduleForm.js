@@ -6,6 +6,7 @@ import { baseURL } from "../../utils/axios";
 import { Button, FormHelperText } from "@material-ui/core";
 import Alert from "../Alert";
 
+
 const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
@@ -135,25 +136,22 @@ export default function ScheduleForm() {
           id="entryTime"
           name="entryTime"
           label="Hora de Entrada"
-          variant="outlined"
-          size="small"
+          type="time"
+          defaultValue="08:00"
           required
-          value={form.entryTime}
           onChange={handleChange}
           error={form.entryTime === "" && formError.entryTime}
-          helperText={formError.entryTime}
+          
         />
         <TextField
           id="departureTime"
           name="departureTime"
           label="Hora de Salida"
-          variant="outlined"
-          size="small"
+          type="time"
+          defaultValue="02:30"
           required
-          value={form.departureTime}
           onChange={handleChange}
           error={form.departureTime === "" && formError.departureTime}
-          helperText={formError.departureTime}
         />
         <Button type="submit" onClick={(e) => handleSubmit(e)}>
           Submit

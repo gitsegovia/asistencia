@@ -9,6 +9,8 @@ import ChargesList from "./components/charges/chargesList";
 import RolesForm from "./components/roles/rolesForm";
 import RolesList from "./components/roles/rolesList";
 import ScheduleForm from "./components/schedules/scheduleForm";
+import SchedulesList from "./components/schedules/schedulesList";
+import BussinessList from "./components/bussiness/bussinessList";
 
 function App() {
   return (
@@ -18,9 +20,11 @@ function App() {
    // <BussinessForm />
     //<ChargesForm />
     //<RolesForm />
-   // <ScheduleForm />
+    //<ScheduleForm />
    //<ChargesList />
-   <RolesList />
+   //<RolesList />
+   //<SchedulesList />
+   <BussinessList />
   );
 }
 
