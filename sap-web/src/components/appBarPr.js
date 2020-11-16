@@ -6,20 +6,26 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+import { ListAltOutlined, AddBox } from "@material-ui/icons/";
 import { Switch, Route, Link } from "react-router-dom";
 import EmployeeForm from "./employee/employeeForm";
 import EmployeeList from "./employee/employeeList";
 import BussinessList from "./bussiness/bussinessList";
+import BussinessForm from "./bussiness/bussinessForm";
 import ChargesList from "./charges/chargesList";
+import ChargesForm from "./charges/chargesForm";
 import SchedulesList from "./schedules/schedulesList";
+import SchedulesForm  from "./schedules/scheduleForm";
 import RolesList from "./roles/rolesList";
 import RolesForm from "./roles/rolesForm";
+import BtnDesplegable from "./BtnDesplegable";
+
+
+
 
 const drawerWidth = 240;
 
@@ -48,17 +54,57 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function AppBarPr() {
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  };
+
   const classes = useStyles();
 
   const links = [
-    { title: "Empleados", path: "/listado-de-empleados" },
-    { title: "Empresa", path: "/listado-de-empresas" },
-    { title: "Cargos", path: "/listado-de-cargos" },
-    { title: "Horarios", path: "/listado-de-horarios" },
-    { title: "Roles", path: "/listado-de-roles" },
-
-    { title: "Role **", path: "/creacion-de-roles" },
+    { title: "Empleados", path: "#", icon: <MailIcon/>, children: [
+      { title: "Listar", path: "/listado-de-empleados", icon: <ListAltOutlined/>, children: []},
+      { title: "Crear", path: "/creacion-de-empleados", icon: <MailIcon/>, children: []},
+    ]},        
+    { title: "Empresa", path: "#", icon: <MailIcon/>, children: [
+      { title: "Listar", path: "/listado-de-empresas", icon: <ListAltOutlined/>, children: [] },
+      { title: "Crear", path: "/creacion-de-empresas", icon: <MailIcon/>, children: [] },
+    ] },
+    { title: "Cargos", path: "#", icon: <MailIcon/>, children: [
+      { title: "Listar", path: "/listado-de-cargos", icon: <ListAltOutlined/>, children: []},
+      { title: "Crear", path: "/creacion-de-cargos", icon: <MailIcon/>, children: []},
+    ]},
+    { title: "Horarios", path: "#", icon: <MailIcon/>, children: [
+      { title: "Listar", path: "/listado-de-horarios", icon: <ListAltOutlined/>, children: []},
+      { title: "Crear", path: "/creacion-de-horarios", icon: <AddBox />, children: []},
+    ]},
+    { title: 'Roles', path: '#', icon: <MailIcon/>, children: [
+      { title: "Listar", path: "/listado-de-roles", icon: <ListAltOutlined/>, children: []},
+      { title: "Crear", path: "/creacion-de-roles", icon: <MailIcon/>, children: []},
+    ]}
   ];
+
+const drawItems = (items, style=null) => {
+  return (
+    items.map(({ title, path, children, icon }, index) => children.length > 0 ? 
+    <BtnDesplegable title={title} icon={icon}>
+      {drawItems(children, {marginLeft: 25})}
+    </BtnDesplegable>
+    :
+    (
+      <Link to={path}>
+        <ListItem style={style} button key={title}>
+          <ListItemIcon>
+              {icon}
+          </ListItemIcon>
+          <ListItemText primary={title} />
+        </ListItem>
+      </Link>
+    ))
+  )
+}
 
   return (
     <div className={classes.root}>
@@ -80,35 +126,12 @@ export default function AppBarPr() {
         <Toolbar />
         <div className={classes.drawerContainer}>
           <List>
-            {links.map(({ title, path }, index) => (
-              <Link to={path}>
-                <ListItem button key={title}>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={title} />
-                </ListItem>
-              </Link>
-            ))}
-          </List>
-          <Divider />
-          <List>
-            {["All mail", "Trash", "Spam"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+            {drawItems(links)}
           </List>
         </div>
       </Drawer>
       <main className={classes.content}>
         <Switch>
-          <Route exact path="/crear-empleado">
-            <EmployeeForm />
-          </Route>
           <Route exact path="/listado-de-empleados">
             <EmployeeList />
           </Route>
@@ -126,6 +149,20 @@ export default function AppBarPr() {
           </Route>
           <Route exact path="/creacion-de-roles">
             <RolesForm />
+          </Route>
+          <Route exact path="/creacion-de-empleados">
+            <EmployeeForm />
+          </Route>
+          <Route exact path="/creacion-de-empresas">
+            <BussinessForm />
+          </Route>
+          <Route exact path="/creacion-de-cargos">
+            <ChargesForm />
+            </Route>
+          <Route exact path="/creacion-de-horarios">
+            <SchedulesForm />
+
+        
           </Route>
         </Switch>
       </main>
