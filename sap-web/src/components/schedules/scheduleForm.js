@@ -117,7 +117,7 @@ export default function ScheduleForm() {
         className={classes.root}
         noValidate
         autoComplete="off"
-        style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
+        style={{ backgroundColor: "#", height: "100vh" }}
       >
         <h1>Registro de Horario</h1>
         <TextField

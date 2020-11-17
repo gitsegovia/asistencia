@@ -5,10 +5,9 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
-import axios from 'axios';
-import {baseURL} from '../../utils/axios';
 import { Button, FormHelperText } from "@material-ui/core";
 import Alert from '../Alert';
+import customAxios from '../../utils/axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,19 +62,19 @@ export default function EmployeeForm() {
     if(submit){
       console.log(form);
       try {
-        const resp = await axios.post(baseURL+'/employee', data);  
+        const resp = await customAxios.post('/employee', data);  
         if(resp.data.error){
           setFailed(resp.data.error ? "yes" : "no");
           console.log('Mensaje de error');
           return;
-        }
-        console.log('Mensaje de guardo');
- 
+        } else { setFailed("no") }
         resetForm();
       } catch (error) {
         setFailed("yes");
         console.log('Error en conexion');
           return;
+      } finally {
+        setTimeout(() => setFailed(null), 2000);
       }
     } 
   }
@@ -117,7 +116,7 @@ export default function EmployeeForm() {
   };
 
   async function consultaBasedatos(){
-    const response = await axios.get(baseURL+"/bussiness");
+    const response = await customAxios.get("/bussiness");
     console.log(response);
     let consulta = response.data;
     if(consulta.error===false){
@@ -140,7 +139,7 @@ export default function EmployeeForm() {
        className={classes.root}
        noValidate
        autoComplete="off"
-       style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
+       style={{ backgroundColor: "#", height: "100vh" }}
       
      >
       <h1>Registro de Empleado</h1>

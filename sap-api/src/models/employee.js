@@ -66,6 +66,7 @@ module.exports = (sequelize, DataTypes) => {
       identification: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       firm: {
         type: DataTypes.STRING,

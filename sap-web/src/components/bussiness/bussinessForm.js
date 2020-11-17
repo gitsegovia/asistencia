@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import axios from 'axios';
-import {baseURL} from '../../utils/axios';
 import { Button, FormHelperText } from "@material-ui/core";
 import Alert from '../Alert';
+import customAxios from '../../utils/axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,7 +54,7 @@ export default function BussinessForm() {
     if(submit){
       console.log(form);
       try {
-        const resp = await axios.post(baseURL+'/bussiness', data);  
+        const resp = await customAxios.post('/bussiness', data);  
         if(resp.data.error){
           setFailed(resp.data.error ? "yes" : "no");
           console.log('Mensaje de error');
@@ -108,7 +107,7 @@ export default function BussinessForm() {
        className={classes.root}
        noValidate
        autoComplete="off"
-       style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
+       style={{ backgroundColor: "#", height: "100vh" }}
       
      >
       <h1>Registro de Empresa</h1>

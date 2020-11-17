@@ -23,6 +23,7 @@ import SchedulesForm  from "./schedules/scheduleForm";
 import RolesList from "./roles/rolesList";
 import RolesForm from "./roles/rolesForm";
 import BtnDesplegable from "./BtnDesplegable";
+import { Paper } from "@material-ui/core";
 
 
 
@@ -49,8 +50,11 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flexGrow: 1,
     padding: theme.spacing(3),
-    marginTop: 30,
+    margin: "60px 10px 0px 10px",
   },
+  paper: {
+    padding: 10
+  }
 }));
 
 export default function AppBarPr() {
@@ -66,15 +70,15 @@ export default function AppBarPr() {
   const links = [
     { title: "Empleados", path: "#", icon: <MailIcon/>, children: [
       { title: "Listar", path: "/listado-de-empleados", icon: <ListAltOutlined/>, children: []},
-      { title: "Crear", path: "/creacion-de-empleados", icon: <MailIcon/>, children: []},
+      { title: "Crear", path: "/creacion-de-empleados", icon: <AddBox />, children: []},
     ]},        
     { title: "Empresa", path: "#", icon: <MailIcon/>, children: [
       { title: "Listar", path: "/listado-de-empresas", icon: <ListAltOutlined/>, children: [] },
-      { title: "Crear", path: "/creacion-de-empresas", icon: <MailIcon/>, children: [] },
+      { title: "Crear", path: "/creacion-de-empresas", icon: <AddBox />, children: [] },
     ] },
     { title: "Cargos", path: "#", icon: <MailIcon/>, children: [
       { title: "Listar", path: "/listado-de-cargos", icon: <ListAltOutlined/>, children: []},
-      { title: "Crear", path: "/creacion-de-cargos", icon: <MailIcon/>, children: []},
+      { title: "Crear", path: "/creacion-de-cargos", icon: <AddBox />, children: []},
     ]},
     { title: "Horarios", path: "#", icon: <MailIcon/>, children: [
       { title: "Listar", path: "/listado-de-horarios", icon: <ListAltOutlined/>, children: []},
@@ -82,7 +86,7 @@ export default function AppBarPr() {
     ]},
     { title: 'Roles', path: '#', icon: <MailIcon/>, children: [
       { title: "Listar", path: "/listado-de-roles", icon: <ListAltOutlined/>, children: []},
-      { title: "Crear", path: "/creacion-de-roles", icon: <MailIcon/>, children: []},
+      { title: "Crear", path: "/creacion-de-roles", icon: <AddBox />, children: []},
     ]}
   ];
 
@@ -131,10 +135,11 @@ const drawItems = (items, style=null) => {
         </div>
       </Drawer>
       <main className={classes.content}>
+        <Paper elevation={4} className={classes.paper}>
         <Switch>
           <Route exact path="/listado-de-empleados">
             <EmployeeList />
-          </Route>
+         </Route>
           <Route exact path="/listado-de-empresas">
             <BussinessList />
           </Route>
@@ -161,10 +166,9 @@ const drawItems = (items, style=null) => {
             </Route>
           <Route exact path="/creacion-de-horarios">
             <SchedulesForm />
-
-        
           </Route>
         </Switch>
+        </Paper>
       </main>
     </div>
   );

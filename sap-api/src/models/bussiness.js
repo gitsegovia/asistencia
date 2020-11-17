@@ -40,6 +40,7 @@ module.exports = (sequelize, DataTypes) => {
       direction: {
         type: DataTypes.STRING,
         allowNull: true,
+        unique: true,
       },
       logo: {
         type: DataTypes.STRING,
