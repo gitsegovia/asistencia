@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 export default function BussinessForm() {
   const [form, setForm] = useState({ firstName: '', direction: '', logo: ''})
   const [formError, setFormError] = useState({ firstName: '', direction: '', logo: ''})
- const [bussiness, setBussiness] = useState('');
+  const [bussiness, setBussiness] = useState('');
   const [failed, setFailed] = useState(null);
 
   const handleSubmit = async (event) => {

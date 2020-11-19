@@ -27,8 +27,8 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(firstName, surname, identification, bussiness, photo, status) {
-  return { firstName, surname, identification, bussiness, photo, status};
+function createData(firstName, surname, identification, bussiness, position, photo, status) {
+  return { firstName, surname, identification, bussiness, position, photo, status};
 }
 
 const useStyles = makeStyles({
