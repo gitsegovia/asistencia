@@ -73,8 +73,8 @@ export default function EmployeeList() {
               </StyledTableCell>
               <StyledTableCell align="right">{row.surname}</StyledTableCell>
               <StyledTableCell align="right">{row.identification}</StyledTableCell>
-              <StyledTableCell align="right">{row.bussiness}</StyledTableCell>
-              <StyledTableCell align="right">{row.position}</StyledTableCell>
+              <StyledTableCell align="right">{row.bussiness!==null ? row.bussiness.firstName : ''}</StyledTableCell>
+              <StyledTableCell align="right">{row.charges!==null ? row.charges.name : ''}</StyledTableCell>
               <StyledTableCell align="right">{row.photo}</StyledTableCell>
               <StyledTableCell align="right">{row.status}</StyledTableCell>
             </StyledTableRow>
