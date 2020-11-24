@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import { baseURL } from '../../utils/axios';
+import Loading from '../../stores/loadingContainer';
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -41,14 +42,17 @@ export default function BussinessList() {
   
   const classes = useStyles();
   const [schedules, setSchedules] = useState([]);
+  let loading = Loading.useContainer();
 
   useEffect(() => {
+    loading.start();
     axios.get(baseURL+'/bussiness')
       .then(response => {
         setSchedules(response.data.data);
       })
-      .catch(err => console.log(err));
-  }, [])
+      .catch(err => console.log(err))
+      .finally(() => loading.stop());
+  }, []);
 
   return (
     <TableContainer component={Paper}>

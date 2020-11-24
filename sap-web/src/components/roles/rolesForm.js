@@ -5,6 +5,7 @@ import axios from 'axios';
 import {baseURL} from '../../utils/axios';
 import { Button, FormHelperText } from "@material-ui/core";
 import Alert from '../Alert';
+import Loading from "../../stores/loadingContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +33,8 @@ export default function RolesForm() {
   const [formError, setFormError] = useState({ name: '', permit: ''});
  const [bussiness, setBussiness] = useState('');
   const [failed, setFailed] = useState(null);
-
+  let loading = Loading.useContainer();
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     let submit = true;
@@ -54,6 +56,7 @@ export default function RolesForm() {
     if(submit){
       console.log(form);
       try {
+        loading.start();
         const resp = await axios.post(baseURL+'/roles', data);  
         if(resp.data.error){
           setFailed(resp.data.error ? "yes" : "no");
@@ -67,6 +70,8 @@ export default function RolesForm() {
         setFailed("yes");
         console.log('Error en conexion');
           return;
+      } finally{
+        loading.stop();
       }
     } 
   }

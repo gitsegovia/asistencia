@@ -5,7 +5,7 @@ import axios from "axios";
 import { baseURL } from "../../utils/axios";
 import { Button, FormHelperText } from "@material-ui/core";
 import Alert from "../Alert";
-
+import Loading from "../../stores/loadingContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ScheduleForm() {
+  let loading = Loading.useContainer();
   const [form, setForm] = useState({
     name: "",
     entryTime: "",
@@ -65,6 +66,7 @@ export default function ScheduleForm() {
     if (submit) {
       console.log(form);
       try {
+        loading.start();
         const resp = await axios.post(baseURL + "/schedule", data);
         if (resp.data.error) {
           setFailed(resp.data.error ? "yes" : "no");
@@ -78,6 +80,8 @@ export default function ScheduleForm() {
         setFailed("yes");
         console.log("Error en conexion");
         return;
+      } finally {
+        loading.stop();
       }
     }
   };
@@ -141,7 +145,6 @@ export default function ScheduleForm() {
           required
           onChange={handleChange}
           error={form.entryTime === "" && formError.entryTime}
-          
         />
         <TextField
           id="departureTime"

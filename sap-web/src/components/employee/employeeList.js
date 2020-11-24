@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import axios, { baseURL }  from "../../utils/axios";
 import DeleteButton from "../funtions/deleteButton";
+import Loading from '../../stores/loadingContainer'; 
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -57,14 +58,17 @@ const useStyles = makeStyles({
 export default function EmployeeList() {
   const classes = useStyles();
   const [employees, setEmployees] = useState([]);
+  let loading = Loading.useContainer(); //Variable que guarda el Loading
 
   useEffect(() => {
+    loading.start(); //Activa el loading
     axios
       .get(baseURL + "/employee")
       .then((response) => {
         setEmployees(response.data.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => loading.stop()); // Finaliza el loading
   }, []);
 
   return (

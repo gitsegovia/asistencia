@@ -8,6 +8,7 @@ import Select from "@material-ui/core/Select";
 import { Button, FormHelperText } from "@material-ui/core";
 import Alert from '../Alert';
 import customAxios from '../../utils/axios';
+import Loading from "../../stores/loadingContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,6 +39,7 @@ export default function EmployeeForm() {
   const [renderBussiness, setRenderBussiness] = useState([]);
   const [renderPosition, setRenderPosition] = useState([]);
   const [failed, setFailed] = useState(null);
+  let loading = Loading.useContainer();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -65,6 +67,7 @@ export default function EmployeeForm() {
     if(submit){
       console.log(form);
       try {
+        loading.start();
         const resp = await customAxios.post('/employee', data);  
         if(resp.data.error){
           setFailed(resp.data.error ? "yes" : "no");
@@ -78,6 +81,7 @@ export default function EmployeeForm() {
           return;
       } finally {
         setTimeout(() => setFailed(null), 2000);
+        loading.stop();
       }
     } 
   }

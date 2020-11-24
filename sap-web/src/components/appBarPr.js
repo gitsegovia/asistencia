@@ -24,6 +24,9 @@ import RolesList from "./roles/rolesList";
 import RolesForm from "./roles/rolesForm";
 import BtnDesplegable from "./BtnDesplegable";
 import { Paper } from "@material-ui/core";
+import Loading from "../stores/loadingContainer";
+import LinearProgress from '@material-ui/core/LinearProgress';
+
 
 
 
@@ -60,7 +63,8 @@ const useStyles = makeStyles((theme) => ({
 export default function AppBarPr() {
 
   const [open, setOpen] = React.useState(false);
-
+  let loading = Loading.useContainer();
+  
   const handleClick = () => {
     setOpen(!open);
   };
@@ -135,6 +139,7 @@ const drawItems = (items, style=null) => {
         </div>
       </Drawer>
       <main className={classes.content}>
+        {loading.loading && <LinearProgress /> }
         <Paper elevation={4} className={classes.paper}>
         <Switch>
           <Route exact path="/listado-de-empleados">
