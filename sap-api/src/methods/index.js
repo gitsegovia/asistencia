@@ -346,7 +346,19 @@ export const Methods = {
       token: null
     };
     try {
-      let employee = await db.Employee.findAll();
+      let employee = await db.Employee.findAll({
+        include: [{
+          model: db.Bussiness,
+          as: 'bussiness'
+        },
+      {
+        model: db.Position,
+        as: 'charges'
+      },{
+        model: db.Schedule,
+        as: 'schedule'
+      }]
+      });
       RESPONSE.error = false;
       RESPONSE.msg = "Busqueda de employee Exitosa";
       RESPONSE.data = employee;
@@ -388,14 +400,18 @@ export const Methods = {
       surname,
       identification,
       firm,
-      photo=null } = req.body;
+      photo=null,
+      bussinessId,
+      position } = req.body;
     try {
       const employeeData = await db.Employee.create({
         firstName,
         surname,
         identification,
         firm,
-        photo
+        photo,
+        bussinessId,
+        positionId: position
       });
       RESPONSE.error = false;
       RESPONSE.msg = `Registro de employee ${employeeData.firstName} Exitoso`;

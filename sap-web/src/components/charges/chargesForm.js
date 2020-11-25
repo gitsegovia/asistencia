@@ -102,7 +102,7 @@ export default function ChargesForm() {
        className={classes.root}
        noValidate
        autoComplete="off"
-       style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
+       style={{ backgroundColor: "#", height: "100vh" }}
       
      >
       <h1>Registro de Cargo</h1>

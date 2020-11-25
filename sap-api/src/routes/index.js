@@ -29,10 +29,11 @@ router.put('/employee/:employeeId', Methods.updateEmployee);
 
 router.post('/employee', Methods.createEmployee);
 
+router.delete('/employee/:employeeId', Methods.deleteEmployee);
+
 router.delete('/employee', (req, res) => {
     return res.json({ resp: 'Delete employee' })
 })
-router.delete('/employee/:employeeId', Methods.deleteEmployee);
 
 //--- Bussiness routes
 router.get('/bussiness', Methods.bussiness)

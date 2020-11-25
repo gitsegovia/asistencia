@@ -5,10 +5,9 @@ import FormControl from '@material-ui/core/FormControl';
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
-import axios from 'axios';
-import {baseURL} from '../../utils/axios';
 import { Button, FormHelperText } from "@material-ui/core";
 import Alert from '../Alert';
+import customAxios from '../../utils/axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,10 +31,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EmployeeForm() {
-  const [form, setForm] = useState({ firstName: '', surname: '', identification: '', firm: '', photo: '', bussiness: ''})
-  const [formError, setFormError] = useState({ firstName: '', surname: '', identification: '', firm: '', photo: '', bussiness: ''})
+  const [form, setForm] = useState({ firstName: '', surname: '', identification: '', firm: '', photo: '', bussinessId: '', position: ''})
+  const [formError, setFormError] = useState({ firstName: '', surname: '', identification: '', firm: '', photo: '', bussinessId: '', position: ''})
   const [bussiness, setBussiness] = useState('');
+  const [position, setPosition] = useState(''); 
   const [renderBussiness, setRenderBussiness] = useState([]);
+  const [renderPosition, setRenderPosition] = useState([]);
   const [failed, setFailed] = useState(null);
 
   const handleSubmit = async (event) => {
@@ -47,7 +48,8 @@ export default function EmployeeForm() {
       identification:   (form.identification!=='') ? '' : 'Ingrese su cedula',
       firm: (form.firm !== '') ? '' : 'Ingrese firma',
       photo: (form.photo !== '') ? '' : 'Ingrese foto',
-      bussiness: form.bussiness !== '' ? '' : 'Seleccione la empresa'
+      bussinessId: form.bussinessId !== '' ? '' : 'Seleccione la empresa',
+      position: form.position !== '' ? '' : 'Seleccione el Cargo'
     }
 
     setFormError({
@@ -63,19 +65,19 @@ export default function EmployeeForm() {
     if(submit){
       console.log(form);
       try {
-        const resp = await axios.post(baseURL+'/employee', data);  
+        const resp = await customAxios.post('/employee', data);  
         if(resp.data.error){
           setFailed(resp.data.error ? "yes" : "no");
           console.log('Mensaje de error');
           return;
-        }
-        console.log('Mensaje de guardo');
- 
+        } else { setFailed("no") }
         resetForm();
       } catch (error) {
         setFailed("yes");
         console.log('Error en conexion');
           return;
+      } finally {
+        setTimeout(() => setFailed(null), 2000);
       }
     } 
   }
@@ -87,7 +89,8 @@ export default function EmployeeForm() {
       identification: '',
       firm: '',
       photo: '',
-      bussiness: ''   
+      bussinessId: '',
+      position: ''   
     });
     setFormError({
       firstName: '',
@@ -95,7 +98,8 @@ export default function EmployeeForm() {
       identification: '',
       firm: '',
       photo: '',   
-      bussiness: ''
+      bussinessId: '',
+      position: ''
     });
   }
 
@@ -117,7 +121,7 @@ export default function EmployeeForm() {
   };
 
   async function consultaBasedatos(){
-    const response = await axios.get(baseURL+"/bussiness");
+    const response = await customAxios.get("/bussiness");
     console.log(response);
     let consulta = response.data;
     if(consulta.error===false){
@@ -127,6 +131,26 @@ export default function EmployeeForm() {
 
   useEffect(() => {
     consultaBasedatos();
+  }, [])
+
+  //---Conexion BD de position
+
+  const handleChangeSelectPosition = (e) => {
+    const value = e.target.value;
+    const name = e.target.name;
+    setPosition(value);
+  }
+  async function consultaBDPosition(){
+    const response = await customAxios.get("/position");
+    console.log(response);
+    let consulta = response.data;
+    if(consulta.error===false){
+      setRenderPosition(consulta.data);
+    }
+  }
+
+  useEffect(() =>{
+    consultaBDPosition();
   }, [])
 
   return (
@@ -140,7 +164,7 @@ export default function EmployeeForm() {
        className={classes.root}
        noValidate
        autoComplete="off"
-       style={{ backgroundColor: "#cfe8fc", height: "100vh" }}
+       style={{ backgroundColor: "#", height: "100vh" }}
       
      >
       <h1>Registro de Empleado</h1>
@@ -210,18 +234,35 @@ export default function EmployeeForm() {
         <InputLabel id="label-empresa">Empresa</InputLabel>
       <Select
         labelId="label-empresa"
-        id="bussiness"        
-        name="bussiness"
+        id="bussinessId"        
+        name="bussinessId"
         size="small"
-        value={form.bussiness}
+        value={form.bussinessId}
         onChange={handleChange}
-        error={form.bussiness === '' && formError.bussiness}
+        error={form.bussinessId === '' && formError.bussinessId}
       >
         {renderBussiness.map((item)=>(
           <MenuItem value={item.id} key={item.id}>{item.firstName}</MenuItem>
         ))}        
       </Select>
-        <FormHelperText error>{formError.bussiness}</FormHelperText>
+        <FormHelperText error>{formError.bussinessId}</FormHelperText>
+      </FormControl>
+      <FormControl >
+        <InputLabel id="label-empresa">Cargo</InputLabel>
+      <Select
+        labelId="label-cargo"
+        id="position"        
+        name="position"
+        size="small"
+        value={form.position}
+        onChange={handleChange}
+        error={form.position === '' && formError.position}
+      >
+        {renderPosition.map((item)=>(
+          <MenuItem value={item.id} key={item.id}>{item.name}</MenuItem>
+        ))}        
+      </Select>
+        <FormHelperText error>{formError.position}</FormHelperText>
       </FormControl>
       <Button type="submit" onClick={(e) => handleSubmit(e)}>
         Submit
