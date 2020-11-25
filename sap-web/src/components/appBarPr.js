@@ -23,10 +23,9 @@ import SchedulesForm  from "./schedules/scheduleForm";
 import RolesList from "./roles/rolesList";
 import RolesForm from "./roles/rolesForm";
 import BtnDesplegable from "./BtnDesplegable";
-import { Paper } from "@material-ui/core";
+import { Paper, IconButton } from "@material-ui/core";
 import Loading from "../stores/loadingContainer";
 import LinearProgress from '@material-ui/core/LinearProgress';
-
 
 
 
@@ -119,6 +118,7 @@ const drawItems = (items, style=null) => {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
+          <IconButton />
           <Typography variant="h4" noWrap>
             Control de Asistencias
           </Typography>

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import axios from 'axios';
-import {baseURL} from '../../utils/axios';
+import axios from "axios";
+import { baseURL } from "../../utils/axios";
 import { Button, FormHelperText } from "@material-ui/core";
-import Alert from '../Alert';
+import Alert from "../Alert";
 import Loading from "../../stores/loadingContainer";
 
 const useStyles = makeStyles((theme) => ({
@@ -23,15 +23,14 @@ const useStyles = makeStyles((theme) => ({
       button: {
         margin: theme.spacing(1),
       },
-
     },
   },
 }));
 
 export default function ChargesForm() {
-  const [form, setForm] = useState({ name: ''})
-  const [formError, setFormError] = useState({ name: ''})
- const [bussiness, setBussiness] = useState('');
+  const [form, setForm] = useState({ name: "" });
+  const [formError, setFormError] = useState({ name: "" });
+  const [bussiness, setBussiness] = useState("");
   const [failed, setFailed] = useState(null);
   let loading = Loading.useContainer();
 
@@ -39,50 +38,56 @@ export default function ChargesForm() {
     event.preventDefault();
     let submit = true;
     const errors = {
-      name: (form.name!=='') ? '' : 'Ingrese su nombre', 
-    }
+      name: form.name !== "" ? "" : "Ingrese su nombre",
+    };
 
     setFormError({
       ...formError,
-      ...errors
+      ...errors,
     });
 
-    submit = !Object.keys(errors).map(error => errors[error] === '').includes(false);
+    submit = !Object.keys(errors)
+      .map((error) => errors[error] === "")
+      .includes(false);
 
     let data = {
-      ...form 
-    }
-    if(submit){
+      ...form,
+    };
+    if (submit) {
       console.log(form);
       try {
         loading.start();
-        const resp = await axios.post(baseURL+'/position', data);  
-        if(resp.data.error){
+        const resp = await axios.post(baseURL + "/position", data);
+        if (resp.data.error) {
           setFailed(resp.data.error ? "yes" : "no");
-          console.log('Mensaje de error');
+          console.log("Mensaje de error");
           return;
+        } else {
+          setFailed("no");
         }
-        console.log('Registro exitoso');
- 
         resetForm();
+        console.log("Registro exitoso");
       } catch (error) {
         setFailed("yes");
-        console.log('Error en conexion');
-          return;
+        console.log("Error en conexion");
+        return;
       } finally {
+        setTimeout(() => {
+          setFailed(null)
+        }, 2000);
         loading.stop();
       }
-    } 
-  }
+    }
+  };
 
   const resetForm = () => {
     setForm({
-      name: ''
+      name: "",
     });
     setFormError({
-      name: ''
+      name: "",
     });
-  }
+  };
 
   const classes = useStyles();
 
@@ -91,43 +96,41 @@ export default function ChargesForm() {
     const name = e.target.name;
     setForm({
       ...form,
-      [name]: value
-    })
+      [name]: value,
+    });
   };
-
 
   return (
     <React.Fragment>
       <div>
-        {failed === 'no' && <Alert color="#038DEF">¡Registro Exitoso!</Alert>}
-        {failed === 'yes' && <Alert color="#980d14">¡Fallo el registro!</Alert>}
+        {failed === "no" && <Alert color="#038DEF">¡Registro Exitoso!</Alert>}
+        {failed === "yes" && <Alert color="#980d14">¡Fallo el registro!</Alert>}
       </div>
-     <form
-       onSubmit={handleSubmit}
-       className={classes.root}
-       noValidate
-       autoComplete="off"
-       style={{ backgroundColor: "#", height: "100vh" }}
-      
-     >
-      <h1>Registro de Cargo</h1>
-      <TextField
-        id="name"
-        name="name"
-        label="Cargo"
-        variant="outlined"
-        size="small"
-        required
-        value={form.name}
-        onChange={handleChange}
-        error={form.name==='' && formError.name}
-        helperText={formError.name}
-      />
-      
-      <Button type="submit" onClick={(e) => handleSubmit(e)}>
-        Submit
-      </Button>
-     </form>
+      <form
+        onSubmit={handleSubmit}
+        className={classes.root}
+        noValidate
+        autoComplete="off"
+        style={{ backgroundColor: "#", height: "100vh" }}
+      >
+        <h1>Registro de Cargo</h1>
+        <TextField
+          id="name"
+          name="name"
+          label="Cargo"
+          variant="outlined"
+          size="small"
+          required
+          value={form.name}
+          onChange={handleChange}
+          error={form.name === "" && formError.name}
+          helperText={formError.name}
+        />
+
+        <Button type="submit" onClick={(e) => handleSubmit(e)}>
+          Submit
+        </Button>
+      </form>
     </React.Fragment>
   );
 }
