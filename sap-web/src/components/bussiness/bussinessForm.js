@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import { Button, FormHelperText } from "@material-ui/core";
 import Alert from '../Alert';
 import customAxios from '../../utils/axios';
+import Loading from "../../stores/loadingContainer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,6 +32,7 @@ export default function BussinessForm() {
   const [formError, setFormError] = useState({ firstName: '', direction: '', logo: ''})
   const [bussiness, setBussiness] = useState('');
   const [failed, setFailed] = useState(null);
+  let loading = Loading.useContainer();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -54,6 +56,7 @@ export default function BussinessForm() {
     if(submit){
       console.log(form);
       try {
+        loading.start();
         const resp = await customAxios.post('/bussiness', data);  
         if(resp.data.error){
           setFailed(resp.data.error ? "yes" : "no");
@@ -68,6 +71,9 @@ export default function BussinessForm() {
         console.log('Error en conexion');
           return;
       }
+        finally{
+          loading.stop();
+        }
     } 
   }
 

@@ -9,6 +9,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import { baseURL } from '../../utils/axios';
+import Loading from '../../stores/loadingContainer';
+
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -41,13 +44,16 @@ export default function ChargesList() {
   
   const classes = useStyles();
   const [charges, setCharges] = useState([]);
+  let loading = Loading.useContainer();
 
   useEffect(() => {
+    loading.start();
     axios.get(baseURL+'/position')
       .then(response => {
         setCharges(response.data.data);
       })
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .finally(() => loading.stop());
   }, [])
 
   return (
