@@ -19,17 +19,14 @@ import BussinessForm from "./bussiness/bussinessForm";
 import ChargesList from "./charges/chargesList";
 import ChargesForm from "./charges/chargesForm";
 import SchedulesList from "./schedules/schedulesList";
-import SchedulesForm  from "./schedules/scheduleForm";
+import SchedulesForm from "./schedules/scheduleForm";
 import RolesList from "./roles/rolesList";
 import RolesForm from "./roles/rolesForm";
 import BtnDesplegable from "./BtnDesplegable";
-import { Paper } from "@material-ui/core";
+import { Paper, IconButton } from "@material-ui/core";
 import Loading from "../stores/loadingContainer";
-import LinearProgress from '@material-ui/core/LinearProgress';
-
-
-
-
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Identification from "./principal/identification";
 
 const drawerWidth = 240;
 
@@ -56,15 +53,14 @@ const useStyles = makeStyles((theme) => ({
     margin: "60px 10px 0px 10px",
   },
   paper: {
-    padding: 10
-  }
+    padding: 10,
+  },
 }));
 
 export default function AppBarPr() {
-
   const [open, setOpen] = React.useState(false);
   let loading = Loading.useContainer();
-  
+
   const handleClick = () => {
     setOpen(!open);
   };
@@ -72,53 +68,139 @@ export default function AppBarPr() {
   const classes = useStyles();
 
   const links = [
-    { title: "Empleados", path: "#", icon: <MailIcon/>, children: [
-      { title: "Listar", path: "/listado-de-empleados", icon: <ListAltOutlined/>, children: []},
-      { title: "Crear", path: "/creacion-de-empleados", icon: <AddBox />, children: []},
-    ]},        
-    { title: "Empresa", path: "#", icon: <MailIcon/>, children: [
-      { title: "Listar", path: "/listado-de-empresas", icon: <ListAltOutlined/>, children: [] },
-      { title: "Crear", path: "/creacion-de-empresas", icon: <AddBox />, children: [] },
-    ] },
-    { title: "Cargos", path: "#", icon: <MailIcon/>, children: [
-      { title: "Listar", path: "/listado-de-cargos", icon: <ListAltOutlined/>, children: []},
-      { title: "Crear", path: "/creacion-de-cargos", icon: <AddBox />, children: []},
-    ]},
-    { title: "Horarios", path: "#", icon: <MailIcon/>, children: [
-      { title: "Listar", path: "/listado-de-horarios", icon: <ListAltOutlined/>, children: []},
-      { title: "Crear", path: "/creacion-de-horarios", icon: <AddBox />, children: []},
-    ]},
-    { title: 'Roles', path: '#', icon: <MailIcon/>, children: [
-      { title: "Listar", path: "/listado-de-roles", icon: <ListAltOutlined/>, children: []},
-      { title: "Crear", path: "/creacion-de-roles", icon: <AddBox />, children: []},
-    ]}
+    {
+      title: "Principal",
+      path: "#",
+      icon: <MailIcon />,
+      children: [
+        {
+          title: "Cedula",
+          path: "/identification",
+          icon: <AddBox />,
+          children: [],
+        },
+      ],
+    },
+    {
+      title: "Empleados",
+      path: "#",
+      icon: <MailIcon />,
+      children: [
+        {
+          title: "Listar",
+          path: "/listado-de-empleados",
+          icon: <ListAltOutlined />,
+          children: [],
+        },
+        {
+          title: "Crear",
+          path: "/creacion-de-empleados",
+          icon: <AddBox />,
+          children: [],
+        },
+      ],
+    },
+    {
+      title: "Empresa",
+      path: "#",
+      icon: <MailIcon />,
+      children: [
+        {
+          title: "Listar",
+          path: "/listado-de-empresas",
+          icon: <ListAltOutlined />,
+          children: [],
+        },
+        {
+          title: "Crear",
+          path: "/creacion-de-empresas",
+          icon: <AddBox />,
+          children: [],
+        },
+      ],
+    },
+    {
+      title: "Cargos",
+      path: "#",
+      icon: <MailIcon />,
+      children: [
+        {
+          title: "Listar",
+          path: "/listado-de-cargos",
+          icon: <ListAltOutlined />,
+          children: [],
+        },
+        {
+          title: "Crear",
+          path: "/creacion-de-cargos",
+          icon: <AddBox />,
+          children: [],
+        },
+      ],
+    },
+    {
+      title: "Horarios",
+      path: "#",
+      icon: <MailIcon />,
+      children: [
+        {
+          title: "Listar",
+          path: "/listado-de-horarios",
+          icon: <ListAltOutlined />,
+          children: [],
+        },
+        {
+          title: "Crear",
+          path: "/creacion-de-horarios",
+          icon: <AddBox />,
+          children: [],
+        },
+      ],
+    },
+    {
+      title: "Roles",
+      path: "#",
+      icon: <MailIcon />,
+      children: [
+        {
+          title: "Listar",
+          path: "/listado-de-roles",
+          icon: <ListAltOutlined />,
+          children: [],
+        },
+        {
+          title: "Crear",
+          path: "/creacion-de-roles",
+          icon: <AddBox />,
+          children: [],
+        },
+      ],
+    },
   ];
 
-const drawItems = (items, style=null) => {
-  return (
-    items.map(({ title, path, children, icon }, index) => children.length > 0 ? 
-    <BtnDesplegable title={title} icon={icon}>
-      {drawItems(children, {marginLeft: 25})}
-    </BtnDesplegable>
-    :
-    (
-      <Link to={path}>
-        <ListItem style={style} button key={title}>
-          <ListItemIcon>
-              {icon}
-          </ListItemIcon>
-          <ListItemText primary={title} />
-        </ListItem>
-      </Link>
-    ))
-  )
-}
+  const drawItems = (items, style = null) => {
+    return items.map(({ title, path, children, icon }, index) =>
+      children.length > 0 ? (
+        <BtnDesplegable title={title} icon={icon}>
+          {drawItems(children, { marginLeft: 25 })}
+        </BtnDesplegable>
+      ) : (
+        <Link to={path}>
+          <ListItem style={style} button key={title}>
+            <ListItemIcon>{icon}</ListItemIcon>
+            <ListItemText primary={title} />
+          </ListItem>
+        </Link>
+      )
+    );
+  };
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
+          <IconButton />
           <Typography variant="h4" noWrap>
             Control de Asistencias
           </Typography>
@@ -133,46 +215,47 @@ const drawItems = (items, style=null) => {
       >
         <Toolbar />
         <div className={classes.drawerContainer}>
-          <List>
-            {drawItems(links)}
-          </List>
+          <List>{drawItems(links)}</List>
         </div>
       </Drawer>
       <main className={classes.content}>
-        {loading.loading && <LinearProgress /> }
+        {loading.loading && <LinearProgress />}
         <Paper elevation={4} className={classes.paper}>
-        <Switch>
-          <Route exact path="/listado-de-empleados">
-            <EmployeeList />
-         </Route>
-          <Route exact path="/listado-de-empresas">
-            <BussinessList />
-          </Route>
-          <Route exact path="/listado-de-cargos">
-            <ChargesList />
-          </Route>
-          <Route exact path="/listado-de-horarios">
-            <SchedulesList />
-          </Route>
-          <Route exact path="/listado-de-roles">
-            <RolesList />
-          </Route>
-          <Route exact path="/creacion-de-roles">
-            <RolesForm />
-          </Route>
-          <Route exact path="/creacion-de-empleados">
-            <EmployeeForm />
-          </Route>
-          <Route exact path="/creacion-de-empresas">
-            <BussinessForm />
-          </Route>
-          <Route exact path="/creacion-de-cargos">
-            <ChargesForm />
+          <Switch>
+            <Route exact path="/identification">
+              <Identification />
             </Route>
-          <Route exact path="/creacion-de-horarios">
-            <SchedulesForm />
-          </Route>
-        </Switch>
+            <Route exact path="/listado-de-empleados">
+              <EmployeeList />
+            </Route>
+            <Route exact path="/listado-de-empresas">
+              <BussinessList />
+            </Route>
+            <Route exact path="/listado-de-cargos">
+              <ChargesList />
+            </Route>
+            <Route exact path="/listado-de-horarios">
+              <SchedulesList />
+            </Route>
+            <Route exact path="/listado-de-roles">
+              <RolesList />
+            </Route>
+            <Route exact path="/creacion-de-roles">
+              <RolesForm />
+            </Route>
+            <Route exact path="/creacion-de-empleados">
+              <EmployeeForm />
+            </Route>
+            <Route exact path="/creacion-de-empresas">
+              <BussinessForm />
+            </Route>
+            <Route exact path="/creacion-de-cargos">
+              <ChargesForm />
+            </Route>
+            <Route exact path="/creacion-de-horarios">
+              <SchedulesForm />
+            </Route>
+          </Switch>
         </Paper>
       </main>
     </div>

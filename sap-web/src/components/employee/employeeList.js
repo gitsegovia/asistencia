@@ -9,7 +9,8 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import axios, { baseURL }  from "../../utils/axios";
 import DeleteButton from "../funtions/deleteButton";
-import Loading from '../../stores/loadingContainer'; 
+import Loading from '../../stores/loadingContainer';
+import Alert from "../Alert";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -58,6 +59,7 @@ const useStyles = makeStyles({
 export default function EmployeeList() {
   const classes = useStyles();
   const [employees, setEmployees] = useState([]);
+  const [alertDelete, setAlertDelete] = useState(null);
   let loading = Loading.useContainer(); //Variable que guarda el Loading
 
   useEffect(() => {
@@ -72,6 +74,9 @@ export default function EmployeeList() {
   }, []);
 
   return (
+    <>
+      {alertDelete === 'yes' && <Alert color="#038DEF">¡Registro Eliminado!</Alert>}
+      {alertDelete === 'no' && <Alert color="#980d14">¡Error al Eliminar Registro!</Alert>}
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
@@ -106,13 +111,18 @@ export default function EmployeeList() {
               <StyledTableCell align="center">{row.status}</StyledTableCell>
               <StyledTableCell align="center">
                 <DeleteButton route={'/employee/'+row.id} onDeleted={(deleted) => {
-                  setEmployees(employees.filter(e => e.id !== row.id))
+                  setEmployees(employees.filter(e => e.id !== row.id));
+                  setAlertDelete("yes");
+                  setTimeout(() => {
+                    setAlertDelete(null);
+                  }, 1500)
                 }} />
               </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
-      </Table>
+      </Table> 
     </TableContainer>
+    </>
   );
 }

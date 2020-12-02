@@ -62,7 +62,7 @@ export default function BussinessForm() {
           setFailed(resp.data.error ? "yes" : "no");
           console.log('Mensaje de error');
           return;
-        }
+        }else{ setFailed("no")}
         console.log('Registro exitoso');
  
         resetForm();

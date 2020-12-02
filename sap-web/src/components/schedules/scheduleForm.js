@@ -72,15 +72,17 @@ export default function ScheduleForm() {
           setFailed(resp.data.error ? "yes" : "no");
           console.log("Mensaje de error");
           return;
-        }
+        } else { setFailed("no")}
         console.log("Registro exitoso");
-
         resetForm();
       } catch (error) {
         setFailed("yes");
         console.log("Error en conexion");
         return;
       } finally {
+        setTimeout(() => {
+          setFailed(null)
+        }, 2000);
         loading.stop();
       }
     }
