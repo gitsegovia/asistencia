@@ -37,7 +37,8 @@ function createData(
   bussiness,
   position,
   photo,
-  status
+  status,
+  schedule,
 ) {
   return {
     firstName,
@@ -47,6 +48,7 @@ function createData(
     position,
     photo,
     status,
+    schedule,
   };
 }
 
@@ -88,13 +90,14 @@ export default function EmployeeList() {
             <StyledTableCell align="center">Cargo</StyledTableCell>
             <StyledTableCell align="center">Foto</StyledTableCell>
             <StyledTableCell align="center">Estatus</StyledTableCell>
+            <StyledTableCell align="center">Horario</StyledTableCell>
             <StyledTableCell align="center">Opciones</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {employees.map((row) => (
             <StyledTableRow key={row.id}>
-              <StyledTableCell component="th" scope="row">
+              <StyledTableCell align="center" component="th" scope="row">
                 {row.firstName}
               </StyledTableCell>
               <StyledTableCell align="center">{row.surname}</StyledTableCell>
@@ -109,6 +112,9 @@ export default function EmployeeList() {
               </StyledTableCell>
               <StyledTableCell align="center">{row.photo}</StyledTableCell>
               <StyledTableCell align="center">{row.status}</StyledTableCell>
+              <StyledTableCell align="center">
+                {row.schedule !== null ? row.schedule.name : ""}
+              </StyledTableCell>
               <StyledTableCell align="center">
                 <DeleteButton route={'/employee/'+row.id} onDeleted={(deleted) => {
                   setEmployees(employees.filter(e => e.id !== row.id));

@@ -402,7 +402,8 @@ export const Methods = {
       firm,
       photo=null,
       bussinessId,
-      position } = req.body;
+      position,
+      schedule} = req.body;
     try {
       const employeeData = await db.Employee.create({
         firstName,
@@ -411,7 +412,8 @@ export const Methods = {
         firm,
         photo,
         bussinessId,
-        positionId: position
+        positionId: position,
+        scheduleId: schedule,
       });
       RESPONSE.error = false;
       RESPONSE.msg = `Registro de employee ${employeeData.firstName} Exitoso`;

@@ -9,6 +9,8 @@ import { Button, FormHelperText } from "@material-ui/core";
 import Alert from "../Alert";
 import customAxios from "../../utils/axios";
 import Loading from "../../stores/loadingContainer";
+import SingnatureCanvas from "react-signature-canvas";
+import ReactDOM from "react-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,13 +53,13 @@ export default function EmployeeForm() {
     position: "",
     schedule: "",
   });
-  const [bussiness, setBussiness] = useState("");
-  const [position, setPosition] = useState("");
-  const [schedule, setSchedule] = useState("");
-  const [renderSchedule, setRenderSchedule] = useState([]);
+
+  let sign = null;
+
+  const [renderSchedule, setRenderSchedule] = useState([]); //--Almacena la consultad e BD
   const [renderBussiness, setRenderBussiness] = useState([]);
   const [renderPosition, setRenderPosition] = useState([]);
-  const [failed, setFailed] = useState(null);
+  const [failed, setFailed] = useState(null); //--- Maneja el error del form
   let loading = Loading.useContainer();
 
   const handleSubmit = async (event) => {
@@ -144,12 +146,6 @@ export default function EmployeeForm() {
     });
   };
 
-  const handleChangeSelect = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
-    setBussiness(value);
-  };
-
   async function consultaBasedatos() {
     const response = await customAxios.get("/bussiness");
     console.log(response);
@@ -165,11 +161,6 @@ export default function EmployeeForm() {
 
   //---Conexion BD de position
 
-  const handleChangeSelectPosition = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
-    setPosition(value);
-  };
   async function consultaBDPosition() {
     const response = await customAxios.get("/position");
     console.log(response);
@@ -180,14 +171,9 @@ export default function EmployeeForm() {
   }
 
   //---Conexion BD de horarios
-  const handleChangeSelectSchedule = (e) => {
-    const value = e.target.value;
-    const name = e.target.name;
-    setSchedule(value);
-  };
   async function consultaBDSchedule() {
     const response = await customAxios.get("/schedule");
-    console.log(response);
+    console.log("Horario;", response);
     let consulta = response.data;
     if (consulta.error === false) {
       setRenderSchedule(consulta.data);
@@ -196,6 +182,7 @@ export default function EmployeeForm() {
 
   useEffect(() => {
     consultaBDPosition();
+    consultaBDSchedule();
   }, []);
 
   return (
@@ -259,7 +246,6 @@ export default function EmployeeForm() {
           error={form.firm === "" && formError.firm}
           helperText={formError.firm}
         />
-
         <FormControl>
           <TextField
             id="photo"
@@ -273,7 +259,6 @@ export default function EmployeeForm() {
             helperText={formError.photo}
           />
         </FormControl>
-
         <FormControl>
           <InputLabel id="label-empresa">Empresa</InputLabel>
           <Select
@@ -331,6 +316,13 @@ export default function EmployeeForm() {
           </Select>
           <FormHelperText error>{formError.schedule}</FormHelperText>
         </FormControl>
+        <div>
+          Firma:
+          <SingnatureCanvas
+            penColor="blue" backgroundColor= "#ccc"
+            canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+          />
+        </div>
         <Button type="submit" onClick={(e) => handleSubmit(e)}>
           Submit
         </Button>
