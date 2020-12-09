@@ -33,11 +33,15 @@ export default function ScheduleForm() {
     name: "",
     entryTime: "",
     departureTime: "",
+    entryTimeTwo: "",
+    departureTimeTwo: "",
   });
   const [formError, setFormError] = useState({
     name: "",
     entryTime: "",
     departureTime: "",
+    entryTimeTwo: "",
+    departureTimeTwo: "",
   });
   const [bussiness, setBussiness] = useState("");
   const [failed, setFailed] = useState(null);
@@ -49,6 +53,10 @@ export default function ScheduleForm() {
       name: form.name !== "" ? "" : "Ingrese su nombre",
       entryTime: form.entryTime !== "" ? "" : "Ingrese hora de entrada",
       departureTime: form.departureTime !== "" ? "" : "Ingrese hora de salida",
+      entryTimeTwo: form.entrytimeTwo !== "" ? "" : "Ingrese Hora",
+      departureTimeTwo: form.departureTimeTwo !== "" ? "" : "Ingrese Hora",
+
+
     };
 
     setFormError({
@@ -143,7 +151,7 @@ export default function ScheduleForm() {
           name="entryTime"
           label="Hora de Entrada"
           type="time"
-          defaultValue="08:00"
+          defaultValue="00:00"
           required
           onChange={handleChange}
           error={form.entryTime === "" && formError.entryTime}
@@ -153,11 +161,37 @@ export default function ScheduleForm() {
           name="departureTime"
           label="Hora de Salida"
           type="time"
-          defaultValue="02:30"
+          defaultValue="00:00"
           required
           onChange={handleChange}
           error={form.departureTime === "" && formError.departureTime}
         />
+        <TextField
+          id="entryTimeTwo"
+          name="entryTimeTwo"
+          label="Hora de Entrada Dos"
+          type="time"
+          defaultValue="00:00"
+          onChange={handleChange}
+          error={form.entryTimeTwo === "" && formError.entryTimeTwo}
+        />
+        <TextField
+          id="departureTimeTwo"
+          name="departureTimeTwo"
+          label="Hora de Salida Dos"
+          type="time"
+          defaultValue="00:00"
+          onChange={handleChange}
+          error={form.departureTimeTwo === "" && formError.departureTimeTwo}
+        />
+        <div>
+        <TextField
+          id="standard-textarea"
+          label="Comentario"
+          placeholder="Placeholder"
+          multiline
+        />
+        </div>
         <Button type="submit" onClick={(e) => handleSubmit(e)}>
           Submit
         </Button>
