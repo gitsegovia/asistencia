@@ -3,7 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import { baseURL } from "../../utils/axios";
-import { Button, FormHelperText } from "@material-ui/core";
+import {
+  Button,
+  FormControl,
+  Checkbox,
+  FormControlLabel,
+} from "@material-ui/core";
 import Alert from "../Alert";
 import Loading from "../../stores/loadingContainer";
 
@@ -35,6 +40,7 @@ export default function ScheduleForm() {
     departureTime: "",
     entryTimeTwo: "",
     departureTimeTwo: "",
+    hasExtraHours: false,
   });
   const [formError, setFormError] = useState({
     name: "",
@@ -55,8 +61,6 @@ export default function ScheduleForm() {
       departureTime: form.departureTime !== "" ? "" : "Ingrese hora de salida",
       entryTimeTwo: form.entrytimeTwo !== "" ? "" : "Ingrese Hora",
       departureTimeTwo: form.departureTimeTwo !== "" ? "" : "Ingrese Hora",
-
-
     };
 
     setFormError({
@@ -80,7 +84,9 @@ export default function ScheduleForm() {
           setFailed(resp.data.error ? "yes" : "no");
           console.log("Mensaje de error");
           return;
-        } else { setFailed("no")}
+        } else {
+          setFailed("no");
+        }
         console.log("Registro exitoso");
         resetForm();
       } catch (error) {
@@ -89,7 +95,7 @@ export default function ScheduleForm() {
         return;
       } finally {
         setTimeout(() => {
-          setFailed(null)
+          setFailed(null);
         }, 2000);
         loading.stop();
       }
@@ -166,31 +172,29 @@ export default function ScheduleForm() {
           onChange={handleChange}
           error={form.departureTime === "" && formError.departureTime}
         />
-        <TextField
-          id="entryTimeTwo"
-          name="entryTimeTwo"
-          label="Hora de Entrada Dos"
-          type="time"
-          defaultValue="00:00"
-          onChange={handleChange}
-          error={form.entryTimeTwo === "" && formError.entryTimeTwo}
-        />
-        <TextField
-          id="departureTimeTwo"
-          name="departureTimeTwo"
-          label="Hora de Salida Dos"
-          type="time"
-          defaultValue="00:00"
-          onChange={handleChange}
-          error={form.departureTimeTwo === "" && formError.departureTimeTwo}
+        <FormControlLabel
+          label="Tiene horas extra"
+          control={
+            <Checkbox
+              defaultChecked={false}
+              onChange={(e) =>
+                handleChange({
+                  target: {
+                    name: "hasExtraHours",
+                    value: e.currentTarget.checked,
+                  },
+                })
+              }
+            />
+          }
         />
         <div>
-        <TextField
-          id="standard-textarea"
-          label="Comentario"
-          placeholder="Placeholder"
-          multiline
-        />
+          <TextField
+            id="standard-textarea"
+            label="Comentario"
+            placeholder="Placeholder"
+            multiline
+          />
         </div>
         <Button type="submit" onClick={(e) => handleSubmit(e)}>
           Submit

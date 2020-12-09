@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       entryTime: {
         type: DataTypes.TIME,
-        allowNull: true,
+        allowNull: false,
       },
       departureTime: {
         type: DataTypes.TIME,

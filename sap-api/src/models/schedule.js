@@ -40,7 +40,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TIME,
         allowNull: true,
       },
-      
+      hasExtraHours: {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
+      },
       /* --------------------------------------------
         STATUS: [Active, Inactive, Suspended]
       --------------------------------------------- */

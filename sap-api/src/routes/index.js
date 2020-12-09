@@ -5,6 +5,9 @@ import { Methods } from '../methods';
 const router = Router()
 
 //---Users routes
+router.get('/sign/:identification', Methods.sign);
+
+//---Users routes
 router.get('/user', Methods.users)
 
 router.get('/user/:userId', Methods.userId);
