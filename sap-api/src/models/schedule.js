@@ -40,7 +40,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.TIME,
         allowNull: true,
       },
-      
+      coment: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
       /* --------------------------------------------
         STATUS: [Active, Inactive, Suspended]
       --------------------------------------------- */

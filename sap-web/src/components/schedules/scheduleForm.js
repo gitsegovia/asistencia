@@ -33,15 +33,13 @@ export default function ScheduleForm() {
     name: "",
     entryTime: "",
     departureTime: "",
-    entryTimeTwo: "",
-    departureTimeTwo: "",
+    coment: "",
   });
   const [formError, setFormError] = useState({
     name: "",
     entryTime: "",
     departureTime: "",
-    entryTimeTwo: "",
-    departureTimeTwo: "",
+    coment: "",
   });
   const [bussiness, setBussiness] = useState("");
   const [failed, setFailed] = useState(null);
@@ -53,12 +51,7 @@ export default function ScheduleForm() {
       name: form.name !== "" ? "" : "Ingrese su nombre",
       entryTime: form.entryTime !== "" ? "" : "Ingrese hora de entrada",
       departureTime: form.departureTime !== "" ? "" : "Ingrese hora de salida",
-      entryTimeTwo: form.entrytimeTwo !== "" ? "" : "Ingrese Hora",
-      departureTimeTwo: form.departureTimeTwo !== "" ? "" : "Ingrese Hora",
-
-
     };
-
     setFormError({
       ...formError,
       ...errors,
@@ -101,11 +94,13 @@ export default function ScheduleForm() {
       name: "",
       entryTime: "",
       departureTime: "",
+      coment: "",
     });
     setFormError({
       name: "",
       entryTime: "",
       departureTime: "",
+      coment: "",
     });
   };
 
@@ -166,30 +161,15 @@ export default function ScheduleForm() {
           onChange={handleChange}
           error={form.departureTime === "" && formError.departureTime}
         />
-        <TextField
-          id="entryTimeTwo"
-          name="entryTimeTwo"
-          label="Hora de Entrada Dos"
-          type="time"
-          defaultValue="00:00"
-          onChange={handleChange}
-          error={form.entryTimeTwo === "" && formError.entryTimeTwo}
-        />
-        <TextField
-          id="departureTimeTwo"
-          name="departureTimeTwo"
-          label="Hora de Salida Dos"
-          type="time"
-          defaultValue="00:00"
-          onChange={handleChange}
-          error={form.departureTimeTwo === "" && formError.departureTimeTwo}
-        />
         <div>
         <TextField
-          id="standard-textarea"
+          id="coment"
+          name="coment"
           label="Comentario"
-          placeholder="Placeholder"
+          //placeholder="Comentario"
           multiline
+          onChange={handleChange}
+          size="small"
         />
         </div>
         <Button type="submit" onClick={(e) => handleSubmit(e)}>
