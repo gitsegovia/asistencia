@@ -8,9 +8,15 @@ import List from "@material-ui/core/List";
 import Typography from "@material-ui/core/Typography";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
+import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import ListItemText from "@material-ui/core/ListItemText";
-import MailIcon from "@material-ui/icons/Mail";
+import FingerprintIcon from '@material-ui/icons/Fingerprint';
+import HomeIcon from '@material-ui/icons/Home';
 import { ListAltOutlined, AddBox } from "@material-ui/icons/";
+import ScheduleIcon from '@material-ui/icons/Schedule';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import BusinessIcon from '@material-ui/icons/Business';
+import GroupIcon from '@material-ui/icons/Group';
 import { Switch, Route, Link } from "react-router-dom";
 import EmployeeForm from "./employee/employeeForm";
 import EmployeeList from "./employee/employeeList";
@@ -69,22 +75,15 @@ export default function AppBarPr() {
 
   const links = [
     {
-      title: "Principal",
-      path: "#",
-      icon: <MailIcon />,
-      children: [
-        {
-          title: "Cedula",
-          path: "/identification",
-          icon: <AddBox />,
-          children: [],
-        },
-      ],
+      title: "Entrada",
+      path: "/identification",
+      icon: <FingerprintIcon />,
+      children: [],
     },
     {
       title: "Empleados",
       path: "#",
-      icon: <MailIcon />,
+      icon: <GroupIcon />,
       children: [
         {
           title: "Listar",
@@ -103,7 +102,7 @@ export default function AppBarPr() {
     {
       title: "Empresa",
       path: "#",
-      icon: <MailIcon />,
+      icon: <BusinessIcon />,
       children: [
         {
           title: "Listar",
@@ -122,7 +121,7 @@ export default function AppBarPr() {
     {
       title: "Cargos",
       path: "#",
-      icon: <MailIcon />,
+      icon: <AssignmentIndIcon />,
       children: [
         {
           title: "Listar",
@@ -141,7 +140,7 @@ export default function AppBarPr() {
     {
       title: "Horarios",
       path: "#",
-      icon: <MailIcon />,
+      icon: <ScheduleIcon />,
       children: [
         {
           title: "Listar",
@@ -160,7 +159,7 @@ export default function AppBarPr() {
     {
       title: "Roles",
       path: "#",
-      icon: <MailIcon />,
+      icon: <PersonOutlineIcon />,
       children: [
         {
           title: "Listar",
@@ -200,7 +199,11 @@ export default function AppBarPr() {
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
-          <IconButton />
+          <Link to="/">
+          <IconButton>
+            <HomeIcon fontSize="large" />
+          </IconButton>
+          </Link>
           <Typography variant="h4" noWrap>
             Control de Asistencias
           </Typography>

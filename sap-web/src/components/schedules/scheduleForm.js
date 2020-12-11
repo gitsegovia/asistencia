@@ -38,16 +38,19 @@ export default function ScheduleForm() {
     name: "",
     entryTime: "",
     departureTime: "",
+<<<<<<< HEAD
     entryTimeTwo: "",
     departureTimeTwo: "",
     hasExtraHours: false,
+=======
+    coment: "",
+>>>>>>> 984c226ed83f16c2e52e9dc67a6c403c88076ca2
   });
   const [formError, setFormError] = useState({
     name: "",
     entryTime: "",
     departureTime: "",
-    entryTimeTwo: "",
-    departureTimeTwo: "",
+    coment: "",
   });
   const [bussiness, setBussiness] = useState("");
   const [failed, setFailed] = useState(null);
@@ -59,10 +62,12 @@ export default function ScheduleForm() {
       name: form.name !== "" ? "" : "Ingrese su nombre",
       entryTime: form.entryTime !== "" ? "" : "Ingrese hora de entrada",
       departureTime: form.departureTime !== "" ? "" : "Ingrese hora de salida",
+<<<<<<< HEAD
       entryTimeTwo: form.entrytimeTwo !== "" ? "" : "Ingrese Hora",
       departureTimeTwo: form.departureTimeTwo !== "" ? "" : "Ingrese Hora",
+=======
+>>>>>>> 984c226ed83f16c2e52e9dc67a6c403c88076ca2
     };
-
     setFormError({
       ...formError,
       ...errors,
@@ -107,11 +112,13 @@ export default function ScheduleForm() {
       name: "",
       entryTime: "",
       departureTime: "",
+      coment: "",
     });
     setFormError({
       name: "",
       entryTime: "",
       departureTime: "",
+      coment: "",
     });
   };
 
@@ -172,6 +179,7 @@ export default function ScheduleForm() {
           onChange={handleChange}
           error={form.departureTime === "" && formError.departureTime}
         />
+<<<<<<< HEAD
         <FormControlLabel
           label="Tiene horas extra"
           control={
@@ -195,6 +203,18 @@ export default function ScheduleForm() {
             placeholder="Placeholder"
             multiline
           />
+=======
+        <div>
+        <TextField
+          id="coment"
+          name="coment"
+          label="Comentario"
+          //placeholder="Comentario"
+          multiline
+          onChange={handleChange}
+          size="small"
+        />
+>>>>>>> 984c226ed83f16c2e52e9dc67a6c403c88076ca2
         </div>
         <Button type="submit" onClick={(e) => handleSubmit(e)}>
           Submit

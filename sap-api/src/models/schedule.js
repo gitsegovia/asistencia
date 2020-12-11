@@ -44,6 +44,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.BOOLEAN,
         defaultValue: false
       },
+      coment: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
       /* --------------------------------------------
         STATUS: [Active, Inactive, Suspended]
       --------------------------------------------- */
