@@ -41,8 +41,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
       },
       timeDiff: {
-        type: DataTypes.DATE,
-        allowNull: null,
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
       startTime: {
         type: DataTypes.TIME,
@@ -50,7 +50,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       endTime: {
         type: DataTypes.TIME,
-        allowNull: null,
+        allowNull: true,
       }
     },
     {
