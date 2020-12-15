@@ -27,15 +27,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
-      Employee.belongsTo(models.Schedule, {
-        foreignKey: {
-          neme: "scheduleId",
-          field: "scheduleId",
-        },
-        as: "schedule",
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-      });
+ 
       Employee.hasMany(models.Assists, {
         foreignKey: {
           name: "employeeId",

@@ -9,15 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Schedule.hasMany(models.Employee, {
-        foreignKey: {
-          name: "scheduleId",
-          field: "scheduleId",
-        },
-        as: "employees",
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-      });
+
     }
   }
   Schedule.init(

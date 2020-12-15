@@ -12,7 +12,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import ListItemText from "@material-ui/core/ListItemText";
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import HomeIcon from '@material-ui/icons/Home';
-import { ListAltOutlined, AddBox } from "@material-ui/icons/";
+import { ListAltOutlined, AddBox, Add } from "@material-ui/icons/";
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import BusinessIcon from '@material-ui/icons/Business';
@@ -33,6 +33,8 @@ import { Paper, IconButton } from "@material-ui/core";
 import Loading from "../stores/loadingContainer";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import Identification from "./principal/identification";
+import ScheduleSelect from "./schedules/ScheduleSelect";
+import EmployeeSchedule from "./schedules/employeeSchedule";
 
 const drawerWidth = 240;
 
@@ -154,6 +156,12 @@ export default function AppBarPr() {
           icon: <AddBox />,
           children: [],
         },
+        {
+          title: "Fijar",
+          path: "/seleccion-horarios",
+          icon: <Add/>,
+          children: [],
+        }
       ],
     },
     {
@@ -257,6 +265,9 @@ export default function AppBarPr() {
             </Route>
             <Route exact path="/creacion-de-horarios">
               <SchedulesForm />
+            </Route>
+            <Route exact path="/Seleccion-horarios">
+              <EmployeeSchedule />
             </Route>
           </Switch>
         </Paper>

@@ -1,9 +1,12 @@
 import db from '../models'
 import {AssistanceMethods} from './assistance';
+import { ScheduleMethods } from './schedule';
 
 export const Methods = {
   //--- Assistance Methods
   ...AssistanceMethods,  
+  //--- Employee Methods
+  ...ScheduleMethods,
   //--- Methods User 
   users: async function (req, res) {
     let RESPONSE = {
@@ -354,9 +357,6 @@ export const Methods = {
       {
         model: db.Position,
         as: 'charges'
-      },{
-        model: db.Schedule,
-        as: 'schedule'
       }]
       });
       RESPONSE.error = false;
@@ -366,7 +366,7 @@ export const Methods = {
     } catch (error) {
       RESPONSE.error = true;
       RESPONSE.msg = error.toString();
-      res.json(RESPONSE);
+      res.status(500).json(RESPONSE);
     }
   },
   employeeId: async function (req, res) {
@@ -586,6 +586,116 @@ export const Methods = {
       res.json(RESPONSE);
     }
   },
+
+  //---Methods Day Of Week
+  employeeSchedule: async function (req, res) {
+    let RESPONSE = {
+      error: false,
+      msg: "",
+      data: null,
+      token: null
+    };
+    try {
+      let employeeSchedule = await db.EmployeeSchedule.findAll();
+      RESPONSE.error = false;
+      RESPONSE.msg = "Busqueda de schedule Exitosa";
+      RESPONSE.data = employeeSchedule;
+      res.json(RESPONSE);
+    } catch (error) {
+      RESPONSE.error = true;
+      RESPONSE.msg = error.toString();
+      res.json(RESPONSE);
+    }
+  },
+  employeeScheduleId: async function (req, res) {
+    let RESPONSE = {
+      error: false,
+      msg: "",
+      data: null,
+      token: null
+    };
+    try {
+      const employeeScheduleId = await db.EmployeeSchedule.findAll({ where: { id: req.params.employeeScheduleId } });
+      RESPONSE.error = false;
+      RESPONSE.msg = "Busqueda Exitosa";
+      RESPONSE.data = employeeScheduleId;
+      res.json(RESPONSE);
+    } catch (error) {
+      RESPONSE.error = true;
+      RESPONSE.msg = error.toString();
+      res.json(RESPONSE);
+    }
+  },
+  createEmployeeSchedule: async function (req, res) {
+    let RESPONSE = {
+      error: false,
+      msg: "",
+      data: null,
+      token: null
+    };
+    const { dayOfWeek, employeeId, scheduleId} = req.body;
+    try {
+      const employeeScheduleData = await db.EmployeeSchedule.create({
+        dayOfWeek, employeeId, scheduleId
+      });
+      RESPONSE.error = false;
+      RESPONSE.msg = `Registro de EmployeeSchedule ${employeeScheduleData.dayOfWeek} Exitoso`;
+      RESPONSE.data = employeeScheduleData;
+      res.json(RESPONSE);
+    } catch (error) {
+      RESPONSE.error = true;
+      RESPONSE.msg = error.toString();
+      res.json(RESPONSE);
+    }
+  },
+  updateEmployeeSchedule: async function (req, res) {
+    let RESPONSE = {
+      error: false,
+      msg: "",
+      data: null,
+      token: null
+    };
+    const { employeeId, scheduleId, dayOfWeek } = req.body;
+    const id = req.params.employeeId;
+    try {
+      const scheduleData = await db.Employee.findOne({ where: { id } });
+      if (employeeData) {
+        employeeData.scheduleId = scheduleId;
+        employeeData.dayOfWeek = dayOfWeek;
+        await scheduleData.save();
+        RESPONSE.error = false;
+        RESPONSE.msg = `Employee-Schedule ${scheduleData.id} fue actualizado`;
+        RESPONSE.data = scheduleData;
+        res.json(RESPONSE);
+      }
+    } catch (error) {
+      RESPONSE.error = true;
+      RESPONSE.msg = error.toString();
+      res.json(RESPONSE);
+    }
+  },
+
+  //--- GRUD de udate-delete falta verificar
+  deleteEmployeeSchedule: async function (req, res) {
+    let RESPONSE = {
+      erro: false,
+      msg: "",
+      data: null,
+      token: null
+    };
+    try {
+      const schedule = await db.EmployeeSchedule.findOne({ where: { id: req.params.scheduleId } });
+      await schedule.destroy();
+      RESPONSE.error = false;
+      RESPONSE.msg = `Schedule ${schedule.name} fue eliminado exitosamente`
+      res.json(RESPONSE);
+    } catch (error) {
+      RESPONSE.error = true;
+      RESPONSE.msg = error.toString();
+      res.json(RESPONSE);
+    }
+  },
+
   //---Methods Assists
   assists: async function (req, res) {
     let RESPONSE = {

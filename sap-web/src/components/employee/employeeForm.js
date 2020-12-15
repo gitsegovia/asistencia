@@ -41,7 +41,6 @@ export default function EmployeeForm() {
     photo: "",
     bussinessId: "",
     position: "",
-    schedule: "",
   });
   const [formError, setFormError] = useState({
     firstName: "",
@@ -51,14 +50,12 @@ export default function EmployeeForm() {
     photo: "",
     bussinessId: "",
     position: "",
-    schedule: "",
   });
 
   let sign = null;
   let sigCanvas;
 
-  const [renderSchedule, setRenderSchedule] = useState([]); //--Almacena la consultad e BD
-  const [renderBussiness, setRenderBussiness] = useState([]);
+  const [renderBussiness, setRenderBussiness] = useState([]);//--Almacena la consultad e BD
   const [renderPosition, setRenderPosition] = useState([]);
   const [failed, setFailed] = useState(null); //--- Maneja el error del form
   let loading = Loading.useContainer();
@@ -74,7 +71,6 @@ export default function EmployeeForm() {
       photo: form.photo !== "" ? "" : "Ingrese foto",
       bussinessId: form.bussinessId !== "" ? "" : "Seleccione la empresa",
       position: form.position !== "" ? "" : "Seleccione el Cargo",
-      schedule: form.schedule !== "" ? "" : "Seleccione el Horario",
     };
 
     setFormError({
@@ -123,7 +119,6 @@ export default function EmployeeForm() {
       photo: "",
       bussinessId: "",
       position: "",
-      schedule: "",
     });
     
     setFormError({
@@ -134,7 +129,6 @@ export default function EmployeeForm() {
       photo: "",
       bussinessId: "",
       position: "",
-      schedule: "",
     });
   };
 
@@ -173,19 +167,8 @@ export default function EmployeeForm() {
     }
   }
 
-  //---Conexion BD de horarios
-  async function consultaBDSchedule() {
-    const response = await customAxios.get("/schedule");
-    console.log("Horario;", response);
-    let consulta = response.data;
-    if (consulta.error === false) {
-      setRenderSchedule(consulta.data);
-    }
-  }
-
   useEffect(() => {
     consultaBDPosition();
-    consultaBDSchedule();
   }, []);
 
   const clearFirm = (e) => {
@@ -292,25 +275,6 @@ export default function EmployeeForm() {
             ))}
           </Select>
           <FormHelperText error>{formError.position}</FormHelperText>
-        </FormControl>
-        <FormControl>
-          <InputLabel id="label-empresa">Horario</InputLabel>
-          <Select
-            labelId="label-horario"
-            id="schedule"
-            name="schedule"
-            size="small"
-            value={form.schedule}
-            onChange={handleChange}
-            error={form.schedule === "" && formError.schedule}
-          >
-            {renderSchedule.map((item) => (
-              <MenuItem value={item.id} key={item.id}>
-                {item.name}
-              </MenuItem>
-            ))}
-          </Select>
-          <FormHelperText error>{formError.schedule}</FormHelperText>
         </FormControl>
         <div>
           Firma:

@@ -188,14 +188,6 @@ export default function ScheduleForm() {
           }
         />
         <div>
-          <TextField
-            id="standard-textarea"
-            label="Comentario"
-            placeholder="Placeholder"
-            multiline
-          />
-        </div>
-        <div>
         <TextField
           id="coment"
           name="coment"
@@ -205,6 +197,9 @@ export default function ScheduleForm() {
           onChange={handleChange}
           size="small"
         />
+        </div>
+        <div>
+         <input type="color" />
         </div>
         <Button type="submit" onClick={(e) => handleSubmit(e)}>
           Submit
