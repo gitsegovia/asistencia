@@ -10,6 +10,9 @@ import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import { baseURL } from '../../utils/axios';
 import Loading from '../../stores/loadingContainer';
+import Alert from '../Alert';
+import DeleteButton from "../funtions/deleteButton";
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -42,6 +45,7 @@ export default function RolesList() {
   
   const classes = useStyles();
   const [roles, setRoles] = useState([]);
+  const [alertDelete, setAlertDelete] = useState(null);
   let loading = Loading.useContainer();
 
   useEffect(() => {
@@ -56,27 +60,41 @@ export default function RolesList() {
   }, [])
 
   return (
+    <>
+    {alertDelete === 'yes' && <Alert color="#038DEF">¡Registro Eliminado!</Alert>}
+      {alertDelete === 'no' && <Alert color="#980d14">¡Error al Eliminar Registro!</Alert>}
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Roles</StyledTableCell>
-            <StyledTableCell>Permiso</StyledTableCell>
+            <StyledTableCell align="center">Roles</StyledTableCell>
+            <StyledTableCell align="center">Permiso</StyledTableCell>
+            <StyledTableCell align="center">Acciones</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {roles.map((row) => (
             <StyledTableRow key={row.id}>
-              <StyledTableCell component="th" scope="row">
+              <StyledTableCell align="center" component="th" scope="row">
                 {row.name}
               </StyledTableCell>
-              <StyledTableCell component="th" scope="row">
+              <StyledTableCell align="center" component="th" scope="row">
                 {row.permit}
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                <DeleteButton route={'/roles/'+row.id} onDeleted={(deleted) => {
+                  setRoles(roles.filter(e => e.id !== row.id));
+                  setAlertDelete("yes");
+                  setTimeout(() => {
+                    setAlertDelete(null);
+                  }, 1500)
+                }} />
               </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
+    </>
   );
 }

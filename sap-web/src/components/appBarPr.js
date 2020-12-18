@@ -35,6 +35,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Identification from "./principal/identification";
 import ScheduleSelect from "./schedules/ScheduleSelect";
 import EmployeeSchedule from "./schedules/employeeSchedule";
+import Login from "./login/login";
 
 const drawerWidth = 240;
 
@@ -80,7 +81,14 @@ export default function AppBarPr() {
       title: "Entrada",
       path: "/identification",
       icon: <FingerprintIcon />,
-      children: [],
+      children: [
+        {
+          title: "Login",
+          path: "/login",
+          icon: <ListAltOutlined />,
+          children: [],
+        },
+      ],
     },
     {
       title: "Empleados",
@@ -268,6 +276,9 @@ export default function AppBarPr() {
             </Route>
             <Route exact path="/Seleccion-horarios">
               <EmployeeSchedule />
+            </Route>
+            <Route exact path="/login">
+              <Login/>
             </Route>
           </Switch>
         </Paper>

@@ -90,7 +90,7 @@ export default function EmployeeList() {
             <StyledTableCell align="center">Cargo</StyledTableCell>
             <StyledTableCell align="center">Foto</StyledTableCell>
             <StyledTableCell align="center">Estatus</StyledTableCell>
-            <StyledTableCell align="center">Opciones</StyledTableCell>
+            <StyledTableCell align="center">Acciones</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>

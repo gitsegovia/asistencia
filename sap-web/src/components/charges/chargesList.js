@@ -10,6 +10,8 @@ import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import { baseURL } from '../../utils/axios';
 import Loading from '../../stores/loadingContainer';
+import DeleteButton from "../funtions/deleteButton";
+import Alert from "../Alert";
 
 
 const StyledTableCell = withStyles((theme) => ({
@@ -44,6 +46,7 @@ export default function ChargesList() {
   
   const classes = useStyles();
   const [charges, setCharges] = useState([]);
+  const [alertDelete, setAlertDelete] = useState(null);
   let loading = Loading.useContainer();
 
   useEffect(() => {
@@ -57,23 +60,37 @@ export default function ChargesList() {
   }, [])
 
   return (
+    <>
+    {alertDelete === 'yes' && <Alert color="#038DEF">¡Registro Eliminado!</Alert>}
+      {alertDelete === 'no' && <Alert color="#980d14">¡Error al Eliminar Registro!</Alert>}
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell>Cargo</StyledTableCell>
+            <StyledTableCell align="center">Cargo</StyledTableCell>
+            <StyledTableCell align="center">Acciones</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {charges.map((row) => (
             <StyledTableRow key={row.id}>
-              <StyledTableCell component="th" scope="row">
+              <StyledTableCell align="center" component="th" scope="row">
                 {row.name}
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                <DeleteButton route={'/position/'+row.id} onDeleted={(deleted) => {
+                  setCharges(charges.filter(e => e.id !== row.id));
+                  setAlertDelete("yes");
+                  setTimeout(() => {
+                    setAlertDelete(null);
+                  }, 1500)
+                }} />
               </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
+    </>
   );
 }
