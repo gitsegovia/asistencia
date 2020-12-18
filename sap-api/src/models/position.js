@@ -18,6 +18,15 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
+      Position.belongsTo(models.Bussiness, {
+        foreignKey: {
+          name: "bussinessId",
+          field: "bussinessId",
+        },
+        as: "bussiness",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
    }
   }
   Position.init(

@@ -18,8 +18,18 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       });
+      Assists.belongsTo(models.Bussiness, {
+        foreignKey: {
+          name: "bussinessId",
+          field: "bussinessId",
+        },
+        as: "bussiness",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
   }
+
   Assists.init(
     {
       id: {

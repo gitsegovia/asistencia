@@ -9,6 +9,15 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Schedule.belongsTo(models.Bussiness, {
+        foreignKey: {
+          name: "bussinessId",
+          field: "bussinessId",
+        },
+        as: "schedule",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
 
     }
   }

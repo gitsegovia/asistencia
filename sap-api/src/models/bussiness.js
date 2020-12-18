@@ -18,6 +18,33 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
+      Bussiness.hasMany(models.Assists, {
+        foreignKey: {
+          name: "bussinessId",
+          field: "bussinessId",
+        },
+        as: "assists",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
+      Bussiness.hasMany(models.Position, {
+        foreignKey: {
+          name: "bussinessId",
+          field: "bussinessId",
+        },
+        as: "position",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
+      Bussiness.hasMany(models.Schedule, {
+        foreignKey: {
+          name: "bussinessId",
+          field: "bussinessId",
+        },
+        as: "schedule",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
   
     }
   }
