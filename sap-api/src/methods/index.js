@@ -1,9 +1,9 @@
 import db from '../models'
-
-
+import {AssistanceMethods} from './assistance';
 
 export const Methods = {
-
+  //--- Assistance Methods
+  ...AssistanceMethods,  
   //--- Methods User 
   users: async function (req, res) {
     let RESPONSE = {
@@ -524,10 +524,10 @@ export const Methods = {
       data: null,
       token: null
     };
-    const { name, entryTime, departureTime } = req.body;
+    const { name, entryTime, departureTime, hasExtraHours, coment } = req.body;
     try {
       const scheduleData = await db.Schedule.create({
-        name, entryTime, departureTime
+        name, entryTime, departureTime, hasExtraHours, coment
       });
       RESPONSE.error = false;
       RESPONSE.msg = `Registro de schedule ${scheduleData.name} Exitoso`;
@@ -546,7 +546,7 @@ export const Methods = {
       data: null,
       token: null
     };
-    const { name, entryTime, departureTime } = req.body;
+    const { name, entryTime, departureTime, coment } = req.body;
     const id = req.params.scheduleId;
     try {
       const scheduleData = await db.Schedule.findOne({ where: { id } });
@@ -554,6 +554,7 @@ export const Methods = {
         scheduleData.name = name;
         scheduleData.entryTime = entryTime;
         scheduleData.departureTime = departureTime;
+        scheduleData.coment = coment;
         await scheduleData.save();
         RESPONSE.error = false;
         RESPONSE.msg = `Schedule ${scheduleData.id} fue actualizado`;

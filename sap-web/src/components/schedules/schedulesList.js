@@ -30,8 +30,8 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function createData(name, entryTime, departureTime) {
-  return { name, entryTime, departureTime};
+function createData(name, entryTime, departureTime, coment, ) {
+  return { name, entryTime, departureTime, coment,};
 }
 
 const useStyles = makeStyles({
@@ -64,6 +64,7 @@ export default function SchedulesList() {
             <StyledTableCell>Horario</StyledTableCell>
             <StyledTableCell>Hora de Entrada</StyledTableCell>
             <StyledTableCell>Hora de Salida</StyledTableCell>
+            <StyledTableCell>Descripcion</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -77,6 +78,9 @@ export default function SchedulesList() {
               </StyledTableCell>
               <StyledTableCell component="th" scope="row">
                 {row.departureTime}
+              </StyledTableCell>
+              <StyledTableCell component="th" scope="row">
+                {row.coment}
               </StyledTableCell>
             </StyledTableRow>
           ))}

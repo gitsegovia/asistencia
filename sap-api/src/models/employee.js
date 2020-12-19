@@ -69,7 +69,7 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
       },
       firm: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: true,
       },
       photo: {

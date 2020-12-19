@@ -10,7 +10,7 @@ import Alert from "../Alert";
 import customAxios from "../../utils/axios";
 import Loading from "../../stores/loadingContainer";
 import SingnatureCanvas from "react-signature-canvas";
-import ReactDOM from "react-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,6 +55,7 @@ export default function EmployeeForm() {
   });
 
   let sign = null;
+  let sigCanvas;
 
   const [renderSchedule, setRenderSchedule] = useState([]); //--Almacena la consultad e BD
   const [renderBussiness, setRenderBussiness] = useState([]);
@@ -69,7 +70,7 @@ export default function EmployeeForm() {
       firstName: form.firstName !== "" ? "" : "Ingrese su nombre",
       surName: form.surname !== "" ? "" : "Ingrese su apellido",
       identification: form.identification !== "" ? "" : "Ingrese su cedula",
-      firm: form.firm !== "" ? "" : "Ingrese firma",
+      firm: !sigCanvas.isEmpty() ? "" : "Ingrese firma",
       photo: form.photo !== "" ? "" : "Ingrese foto",
       bussinessId: form.bussinessId !== "" ? "" : "Seleccione la empresa",
       position: form.position !== "" ? "" : "Seleccione el Cargo",
@@ -87,6 +88,7 @@ export default function EmployeeForm() {
 
     let data = {
       ...form,
+      firm: sigCanvas.toDataURL()
     };
     if (submit) {
       console.log(form);
@@ -123,6 +125,7 @@ export default function EmployeeForm() {
       position: "",
       schedule: "",
     });
+    
     setFormError({
       firstName: "",
       surname: "",
@@ -185,6 +188,10 @@ export default function EmployeeForm() {
     consultaBDSchedule();
   }, []);
 
+  const clearFirm = (e) => {
+    sigCanvas.clear();
+  }
+
   return (
     <React.Fragment>
       <div>
@@ -234,19 +241,7 @@ export default function EmployeeForm() {
           error={form.identification === "" && formError.identification}
           helperText={formError.identification}
         />
-        <div />
-        <TextField
-          id="firm"
-          name="firm"
-          label="Firma"
-          variant="outlined"
-          size="small"
-          value={form.firm}
-          onChange={handleChange}
-          error={form.firm === "" && formError.firm}
-          helperText={formError.firm}
-        />
-        <FormControl>
+       <FormControl>
           <TextField
             id="photo"
             name="photo"
@@ -259,6 +254,7 @@ export default function EmployeeForm() {
             helperText={formError.photo}
           />
         </FormControl>
+        <div />
         <FormControl>
           <InputLabel id="label-empresa">Empresa</InputLabel>
           <Select
@@ -318,10 +314,15 @@ export default function EmployeeForm() {
         </FormControl>
         <div>
           Firma:
-          <SingnatureCanvas
+          <SingnatureCanvas 
             penColor="blue" backgroundColor= "#ccc"
             canvasProps={{ width: 500, height: 200, className: "sigCanvas" }}
+            ref={(ref) => { sigCanvas = ref }}
           />
+          {form.sigCanvas !== "" && <span style={{color: 'red'}}>{formError.firm}</span>}
+          <Button onClick={(e) => clearFirm(e)}>
+            Borrar
+          </Button>
         </div>
         <Button type="submit" onClick={(e) => handleSubmit(e)}>
           Submit

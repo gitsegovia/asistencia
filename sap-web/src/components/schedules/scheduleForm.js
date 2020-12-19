@@ -3,7 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
 import { baseURL } from "../../utils/axios";
-import { Button, FormHelperText } from "@material-ui/core";
+import {
+  Button,
+  FormControl,
+  Checkbox,
+  FormControlLabel,
+} from "@material-ui/core";
 import Alert from "../Alert";
 import Loading from "../../stores/loadingContainer";
 
@@ -33,11 +38,16 @@ export default function ScheduleForm() {
     name: "",
     entryTime: "",
     departureTime: "",
+    entryTimeTwo: "",
+    departureTimeTwo: "",
+    hasExtraHours: false,
+    coment: "",
   });
   const [formError, setFormError] = useState({
     name: "",
     entryTime: "",
     departureTime: "",
+    coment: "",
   });
   const [bussiness, setBussiness] = useState("");
   const [failed, setFailed] = useState(null);
@@ -50,7 +60,6 @@ export default function ScheduleForm() {
       entryTime: form.entryTime !== "" ? "" : "Ingrese hora de entrada",
       departureTime: form.departureTime !== "" ? "" : "Ingrese hora de salida",
     };
-
     setFormError({
       ...formError,
       ...errors,
@@ -72,7 +81,9 @@ export default function ScheduleForm() {
           setFailed(resp.data.error ? "yes" : "no");
           console.log("Mensaje de error");
           return;
-        } else { setFailed("no")}
+        } else {
+          setFailed("no");
+        }
         console.log("Registro exitoso");
         resetForm();
       } catch (error) {
@@ -81,7 +92,7 @@ export default function ScheduleForm() {
         return;
       } finally {
         setTimeout(() => {
-          setFailed(null)
+          setFailed(null);
         }, 2000);
         loading.stop();
       }
@@ -93,11 +104,13 @@ export default function ScheduleForm() {
       name: "",
       entryTime: "",
       departureTime: "",
+      coment: "",
     });
     setFormError({
       name: "",
       entryTime: "",
       departureTime: "",
+      coment: "",
     });
   };
 
@@ -143,7 +156,7 @@ export default function ScheduleForm() {
           name="entryTime"
           label="Hora de Entrada"
           type="time"
-          defaultValue="08:00"
+          defaultValue="00:00"
           required
           onChange={handleChange}
           error={form.entryTime === "" && formError.entryTime}
@@ -153,11 +166,46 @@ export default function ScheduleForm() {
           name="departureTime"
           label="Hora de Salida"
           type="time"
-          defaultValue="02:30"
+          defaultValue="00:00"
           required
           onChange={handleChange}
           error={form.departureTime === "" && formError.departureTime}
         />
+        <FormControlLabel
+          label="Tiene horas extra"
+          control={
+            <Checkbox
+              defaultChecked={false}
+              onChange={(e) =>
+                handleChange({
+                  target: {
+                    name: "hasExtraHours",
+                    value: e.currentTarget.checked,
+                  },
+                })
+              }
+            />
+          }
+        />
+        <div>
+          <TextField
+            id="standard-textarea"
+            label="Comentario"
+            placeholder="Placeholder"
+            multiline
+          />
+        </div>
+        <div>
+        <TextField
+          id="coment"
+          name="coment"
+          label="Comentario"
+          //placeholder="Comentario"
+          multiline
+          onChange={handleChange}
+          size="small"
+        />
+        </div>
         <Button type="submit" onClick={(e) => handleSubmit(e)}>
           Submit
         </Button>
