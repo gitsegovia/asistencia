@@ -73,6 +73,9 @@ export default function BussinessForm() {
       }
         finally{
           loading.stop();
+          setTimeout(() => {
+            setFailed(null);
+          }, 1500);
         }
     } 
   }

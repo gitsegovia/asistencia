@@ -67,6 +67,17 @@ router.delete('/schedule', (req, res) => {
 })
 router.delete('/schedule/:scheduleId', Methods.deleteSchedule);
 
+//---Day Of Week
+router.get("/employeeSchedule/by-employee/:employeeId", Methods.getSchedulesByEmployee);
+
+router.get("/employeeSchedule/:employeeScheduleId", Methods.employeeScheduleId);
+
+router.post("/employeeSchedule", Methods.createEmployeeSchedule);
+
+router.put("/employeeSchedule/:employeeScheduleId", Methods.updateEmployeeSchedule);
+
+router.delete("/employeeSchedule/:scheduleId", Methods.deleteEmployeeSchedule);
+
 //---Assists routes
 router.get('/assists', Methods.assists);
 

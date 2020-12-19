@@ -10,6 +10,11 @@ import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
 import { baseURL } from '../../utils/axios';
 import Loading from '../../stores/loadingContainer';
+import Alert from '../Alert';
+import DeleteButton from "../funtions/deleteButton";
+
+
+
 const StyledTableCell = withStyles((theme) => ({
   head: {
     backgroundColor: theme.palette.common.black,
@@ -41,45 +46,60 @@ const useStyles = makeStyles({
 export default function BussinessList() {
   
   const classes = useStyles();
-  const [schedules, setSchedules] = useState([]);
+  const [bussiness, setBussiness] = useState([]);
+  const [alertDelete, setAlertDelete] = useState(null);
   let loading = Loading.useContainer();
 
   useEffect(() => {
     loading.start();
     axios.get(baseURL+'/bussiness')
       .then(response => {
-        setSchedules(response.data.data);
+        setBussiness(response.data.data);
       })
       .catch(err => console.log(err))
       .finally(() => loading.stop());
   }, []);
 
   return (
+    <>
+    {alertDelete === 'yes' && <Alert color="#038DEF">¡Registro Eliminado!</Alert>}
+      {alertDelete === 'no' && <Alert color="#980d14">¡Error al Eliminar Registro!</Alert>}
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
-          <TableRow>
-            <StyledTableCell>Empresa</StyledTableCell>
-            <StyledTableCell>Dirección</StyledTableCell>
-            <StyledTableCell>Logo</StyledTableCell>
+          <TableRow >
+            <StyledTableCell align="center">Empresa</StyledTableCell>
+            <StyledTableCell align="center">Dirección</StyledTableCell>
+            <StyledTableCell align="center">Logo</StyledTableCell>
+            <StyledTableCell align="center">Acciones</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {schedules.map((row) => (
+          {bussiness.map((row) => (
             <StyledTableRow key={row.id}>
-              <StyledTableCell component="th" scope="row">
+              <StyledTableCell align="center" component="th" scope="row">
                 {row.firstName}
               </StyledTableCell>
-              <StyledTableCell component="th" scope="row">
+              <StyledTableCell align="center" component="th" scope="row">
                 {row.direction}
               </StyledTableCell>
-              <StyledTableCell component="th" scope="row">
+              <StyledTableCell align="center" component="th" scope="row">
                 {row.logo}
+              </StyledTableCell>
+              <StyledTableCell align="center">
+                <DeleteButton route={'/bussiness/'+row.id} onDeleted={(deleted) => {
+                  setBussiness(bussiness.filter(e => e.id !== row.id));
+                  setAlertDelete("yes");
+                  setTimeout(() => {
+                    setAlertDelete(null);
+                  }, 1500)
+                }} />
               </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>
       </Table>
     </TableContainer>
+    </>
   );
 }
