@@ -3,6 +3,8 @@ import express from "express";
 import bodyParser from "body-parser";
 import path from "path";
 import cors from "cors";
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt'
 
 //CONFIG
 const PORT = process.env.PORT || 3000;
@@ -18,6 +20,7 @@ const app = express();
 
 //Public static
 app.use(express.static(path.join(__dirname, "../public")));
+app.set("jwt_secret", process.env.JWT_SECRET)
 
 //Middlewares
 app.use(bodyParser.urlencoded({ extended: true }));

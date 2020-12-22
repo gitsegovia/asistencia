@@ -12,6 +12,9 @@ function onFailure(error) {
 
 const customAxios = axios.create({
     baseURL,
+    headers: {
+        "access-token": localStorage.getItem("token")
+    }
 })
 
 customAxios.interceptors.response.use(onSuccess, onFailure);

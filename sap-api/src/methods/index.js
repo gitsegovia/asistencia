@@ -1,8 +1,11 @@
 import db from '../models'
 import {AssistanceMethods} from './assistance';
+import { AuthenticationMethods } from './authentication';
 import { ScheduleMethods } from './schedule';
 
 export const Methods = {
+  // Auth Methods
+  ...AuthenticationMethods,
   //--- Assistance Methods
   ...AssistanceMethods,  
   //--- Employee Methods
@@ -342,6 +345,7 @@ export const Methods = {
 
   //---Methods Employee
   employee: async function (req, res) {
+
     let RESPONSE = {
       error: false,
       msg: "",
@@ -350,6 +354,9 @@ export const Methods = {
     };
     try {
       let employee = await db.Employee.findAll({
+        where: {
+          bussinessId:req.decoded.bussinessId
+        },
         include: [{
           model: db.Bussiness,
           as: 'bussiness'
@@ -411,7 +418,7 @@ export const Methods = {
         identification,
         firm,
         photo,
-        bussinessId,
+        bussinessId: req.decoded.bussinessId,
         positionId: position,
         scheduleId: schedule,
       });

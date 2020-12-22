@@ -12,7 +12,7 @@ import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
 import ListItemText from "@material-ui/core/ListItemText";
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
 import HomeIcon from '@material-ui/icons/Home';
-import { ListAltOutlined, AddBox, Add } from "@material-ui/icons/";
+import { ListAltOutlined, AddBox, Add, ExitToAppOutlined } from "@material-ui/icons/";
 import ScheduleIcon from '@material-ui/icons/Schedule';
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import BusinessIcon from '@material-ui/icons/Business';
@@ -223,6 +223,10 @@ export default function AppBarPr() {
           <Typography variant="h4" noWrap>
             Control de Asistencias
           </Typography>
+          <span style={{flex: '1 1'}}></span>
+          <IconButton>
+            <ExitToAppOutlined onClick={() => logout()} />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer
@@ -285,4 +289,10 @@ export default function AppBarPr() {
       </main>
     </div>
   );
+}
+
+function logout(){
+  localStorage.clear();
+  window.location.reload();
+  window.location.href = 'login';
 }
