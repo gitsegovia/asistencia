@@ -17,7 +17,16 @@ module.exports = (sequelize, DataTypes) => {
         as: "roles",
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
-      });    
+      });
+      User.belongsTo(models.Bussiness, {
+        foreignKey: {
+          name: "bussinessId",
+          field: "bussinessId",
+        },
+        as: "bussiness",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
   }
   /* --------------------------------------------
@@ -35,19 +44,29 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-      user: {
+      surName: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+      username: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
       },
       password: {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true,
+      },
       status: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "Active"
-      }
+        defaultValue: "Active",
+      },
     },
     {
       sequelize,

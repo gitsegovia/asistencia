@@ -1,120 +1,137 @@
-import { Router } from 'express';
-import { json } from 'body-parser';
-import { Methods } from '../methods';
+import { Router } from "express";
+import { Methods } from "../methods";
+import auth from "../middleware/auth";
 
-const router = Router()
+const router = Router();
+
+//---AUTH routes
+router.post("/auth/register", auth, Methods.register);
+router.post("/auth/login", Methods.login);
+//---Users routes
+router.get("/sign/:identification", auth, Methods.sign);
 
 //---Users routes
-router.get('/sign/:identification', Methods.sign);
+router.get("/user", auth, Methods.users);
 
-//---Users routes
-router.get('/user', Methods.users)
+router.get("/user/:userId", auth, Methods.userId);
 
-router.get('/user/:userId', Methods.userId);
+router.put("/user/:userId", auth, Methods.updateUser);
 
-router.put('/user/:userId', Methods.updateUser)
+router.post("/user", auth, Methods.createUser);
 
-router.post('/user', Methods.createUser)
+router.delete("/user", (req, res) => {
+  return res.json({ resp: "Delete users" });
+});
 
-
-router.delete('/user', (req, res) => {
-    return res.json({ resp: 'Delete users' })
-})
-
-router.delete('/user/:userId', Methods.deleteUser)
+router.delete("/user/:userId", auth, Methods.deleteUser);
 
 //---Employees routes
-router.get('/employee', Methods.employee);
+router.get("/employee", auth, auth, Methods.employee);
 
-router.get('/employee/:employeeId', Methods.employeeId);
+router.get("/employee/:employeeId", auth, Methods.employeeId);
 
-router.put('/employee/:employeeId', Methods.updateEmployee);
+router.put("/employee/:employeeId", auth, Methods.updateEmployee);
 
-router.post('/employee', Methods.createEmployee);
+router.post("/employee", auth, Methods.createEmployee);
 
-router.delete('/employee/:employeeId', Methods.deleteEmployee);
+router.delete("/employee/:employeeId", auth, Methods.deleteEmployee);
 
-router.delete('/employee', (req, res) => {
-    return res.json({ resp: 'Delete employee' })
-})
+router.delete("/employee", (req, res) => {
+  return res.json({ resp: "Delete employee" });
+});
 
 //--- Bussiness routes
-router.get('/bussiness', Methods.bussiness)
+router.get("/bussiness", auth, Methods.bussiness);
 
-router.get('/bussiness/:bussinessId', Methods.bussinessId);
+router.get("/bussiness/:bussinessId", auth, Methods.bussinessId);
 
-router.put('/bussiness/:bussinessId', Methods.updateBussiness)
+router.put("/bussiness/:bussinessId", auth, Methods.updateBussiness);
 
-router.post('/bussiness', Methods.createBussiness)
+router.post("/bussiness", auth, Methods.createBussiness);
 
-
-router.delete('/bussiness', (req, res) => {
-    return res.json({ resp: 'Delete bussiness' })
-})
-router.delete('/bussiness/:bussinessId', Methods.deleteBussiness);
+router.delete("/bussiness", (req, res) => {
+  return res.json({ resp: "Delete bussiness" });
+});
+router.delete("/bussiness/:bussinessId", auth, Methods.deleteBussiness);
 
 //---Schedule routes
-router.get('/schedule', Methods.schedule);
+router.get("/schedule", auth, Methods.schedule);
 
-router.get('/schedule/:scheduleId', Methods.scheduleId);
+router.get("/schedule/:scheduleId", auth, Methods.scheduleId);
 
-router.put('/schedule/:scheduleId', Methods.updateSchedule);
+router.put("/schedule/:scheduleId", auth, Methods.updateSchedule);
 
-router.post('/schedule', Methods.createSchedule);
+router.post("/schedule", auth, Methods.createSchedule);
 
-router.delete('/schedule', (req, res) => {
-    return res.json({ resp: 'Delete shedule' })
-})
-router.delete('/schedule/:scheduleId', Methods.deleteSchedule);
+router.delete("/schedule", (req, res) => {
+  return res.json({ resp: "Delete shedule" });
+});
+router.delete("/schedule/:scheduleId", auth, Methods.deleteSchedule);
 
 //---Day Of Week
-router.get("/employeeSchedule/by-employee/:employeeId", Methods.getSchedulesByEmployee);
+router.get(
+  "/employeeSchedule/by-employee/:employeeId",
+  auth,
+  Methods.getSchedulesByEmployee
+);
 
-router.get("/employeeSchedule/:employeeScheduleId", Methods.employeeScheduleId);
+router.get(
+  "/employeeSchedule/:employeeScheduleId",
+  auth,
+  Methods.employeeScheduleId
+);
 
-router.post("/employeeSchedule", Methods.createEmployeeSchedule);
+router.post("/employeeSchedule", auth, Methods.createEmployeeSchedule);
 
-router.put("/employeeSchedule/:employeeScheduleId", Methods.updateEmployeeSchedule);
+router.put(
+  "/employeeSchedule/:employeeScheduleId",
+  auth,
+  Methods.updateEmployeeSchedule
+);
 
-router.delete("/employeeSchedule/:scheduleId", Methods.deleteEmployeeSchedule);
+router.delete(
+  "/employeeSchedule/:scheduleId",
+  auth,
+  Methods.deleteEmployeeSchedule
+);
 
 //---Assists routes
-router.get('/assists', Methods.assists);
+router.get("/assists", auth, Methods.assists);
 
-router.get('/assists/:assistsId', Methods.assistsId);
+router.get("/assists/:assistsId", auth, Methods.assistsId);
 
-router.put('/assists/:assistsId', Methods.updateAssists);
+router.put("/assists/:assistsId", auth, Methods.updateAssists);
 
-router.post('/assists', Methods.createAssists);
+router.post("/assists", auth, Methods.createAssists);
 
-router.delete('/assists', (req, res) => {
-    return res.json({ resp: 'Delete assists' })
-})
-router.delete('/assists/:assistsId', Methods.deleteAssist);
+router.delete("/assists", (req, res) => {
+  return res.json({ resp: "Delete assists" });
+});
+router.delete("/assists/:assistsId", auth, Methods.deleteAssist);
 
 //---Position routes
-router.get('/position', Methods.position);
+router.get("/position", auth, Methods.position);
 
-router.get('/position/:positionId', Methods.positionId);
+router.get("/position/:positionId", auth, Methods.positionId);
 
-router.put('/position/:positionId', Methods.updatePosition);
+router.put("/position/:positionId", auth, Methods.updatePosition);
 
-router.post('/position', Methods.createPosition);
+router.post("/position", auth, Methods.createPosition);
 
-router.delete('/position', (req, res) => {
-    return res.json({ resp: 'Delete position' })
-})
-router.delete('/position/:positionId', Methods.deletePosition);
+router.delete("/position", (req, res) => {
+  return res.json({ resp: "Delete position" });
+});
+router.delete("/position/:positionId", auth, Methods.deletePosition);
 
 //---Roles routes
-router.get('/roles', Methods.roles);
+router.get("/roles", auth, Methods.roles);
 
-router.get('/roles/:roleId', Methods.roleId);
+router.get("/roles/:roleId", auth, Methods.roleId);
 
-router.put('/roles/:roleId', Methods.updateRole);
+router.put("/roles/:roleId", auth, Methods.updateRole);
 
-router.post('/roles', Methods.createRole);
+router.post("/roles", auth, Methods.createRole);
 
-router.delete('/roles/:roleId', Methods.deleteRole);
+router.delete("/roles/:roleId", auth, Methods.deleteRole);
 
-module.exports = router
+module.exports = router;

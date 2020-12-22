@@ -45,7 +45,15 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
-  
+      Bussiness.hasMany(models.User, {
+        foreignKey: {
+          name: "bussinessId",
+          field: "bussinessId",
+        },
+        as: "user",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
   }
   Bussiness.init(
