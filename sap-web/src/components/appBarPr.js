@@ -36,6 +36,9 @@ import Identification from "./principal/identification";
 import ScheduleSelect from "./schedules/ScheduleSelect";
 import EmployeeSchedule from "./schedules/employeeSchedule";
 import Login from "./login/login";
+import UserForm from "./users/userForm"
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const drawerWidth = 240;
 
@@ -79,12 +82,18 @@ export default function AppBarPr() {
   const links = [
     {
       title: "Entrada",
-      path: "/identification",
+      path: "#",
       icon: <FingerprintIcon />,
       children: [
         {
           title: "Login",
           path: "/login",
+          icon: <ListAltOutlined />,
+          children: [],
+        },
+        {
+          title: "Marcar",
+          path: "identification",
           icon: <ListAltOutlined />,
           children: [],
         },
@@ -191,6 +200,19 @@ export default function AppBarPr() {
         },
       ],
     },
+    {
+      title: "Usuarios",
+      path: "#",
+      icon: <AccountCircleIcon/>,
+      children: [
+        {
+          title: "Registrar",
+          path: "/crear-usuario",
+          icon: <PersonAddIcon/>,
+          children: [],
+        }
+      ]
+    }
   ];
 
   const drawItems = (items, style = null) => {
@@ -280,6 +302,9 @@ export default function AppBarPr() {
             </Route>
             <Route exact path="/Seleccion-horarios">
               <EmployeeSchedule />
+            </Route>
+            <Route exact path="/crear-usuario">
+              <UserForm />
             </Route>
             <Route exact path="/login">
               <Login/>
