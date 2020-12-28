@@ -39,6 +39,7 @@ import Login from "./login/login";
 import UserForm from "./users/userForm"
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import UserStore from "../stores/userState";
 
 const drawerWidth = 240;
 
@@ -72,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AppBarPr() {
   const [open, setOpen] = React.useState(false);
   let loading = Loading.useContainer();
+  const userState = UserStore.useContainer();
 
   const handleClick = () => {
     setOpen(!open);
@@ -247,7 +249,9 @@ export default function AppBarPr() {
           </Typography>
           <span style={{flex: '1 1'}}></span>
           <IconButton>
-            <ExitToAppOutlined onClick={() => logout()} />
+            <ExitToAppOutlined onClick={() => {
+                userState.logout();
+            }} />
           </IconButton>
         </Toolbar>
       </AppBar>
@@ -314,10 +318,4 @@ export default function AppBarPr() {
       </main>
     </div>
   );
-}
-
-function logout(){
-  localStorage.clear();
-  window.location.reload();
-  window.location.href = 'login';
 }

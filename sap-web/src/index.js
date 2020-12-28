@@ -3,10 +3,13 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import UserStore from "./stores/userState";
 
 ReactDOM.render(
-    <App />,
-    document.getElementById("root")
+  <UserStore.Provider>
+    <App />
+  </UserStore.Provider>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change
