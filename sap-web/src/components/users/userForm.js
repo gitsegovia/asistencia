@@ -94,7 +94,7 @@ export default function UserForm() {
       console.log(form);
       try {
         loading.start();
-        const resp = await customAxios.post("/users", data);
+        const resp = await customAxios.post("/auth/register", data);
         if (resp.data.error) {
           setFailed(resp.data.error ? "yes" : "no");
           console.log("Mensaje de error");
@@ -191,16 +191,16 @@ export default function UserForm() {
           </Grid>
           <Grid item className={classes.gridItem} xs={6}>
             <TextField
-              id="surname"
-              name="surname"
+              id="surName"
+              name="surName"
               label="Apellido"
               variant="outlined"
               size="small"
               required
-              value={form.surname}
+              value={form.surName}
               onChange={handleChange}
-              error={form.surname === "" && formError.surname}
-              helperText={formError.surname}
+              error={form.surName === "" && formError.surName}
+              helperText={formError.surName}
             />
           </Grid>
           <Grid item className={classes.gridItem} xs={6}>

@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     "& > *": {
       margin: theme.spacing(1),
-      width: "20ch",
+      width: "100%",
 
       formControl: {
         margin: theme.spacing(1),

@@ -88,12 +88,6 @@ export default function AppBarPr() {
       icon: <FingerprintIcon />,
       children: [
         {
-          title: "Login",
-          path: "/login",
-          icon: <ListAltOutlined />,
-          children: [],
-        },
-        {
           title: "Marcar",
           path: "identification",
           icon: <ListAltOutlined />,
@@ -309,9 +303,6 @@ export default function AppBarPr() {
             </Route>
             <Route exact path="/crear-usuario">
               <UserForm />
-            </Route>
-            <Route exact path="/login">
-              <Login/>
             </Route>
           </Switch>
         </Paper>
