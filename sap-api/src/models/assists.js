@@ -18,15 +18,6 @@ module.exports = (sequelize, DataTypes) => {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       });
-      Assists.belongsTo(models.Bussiness, {
-        foreignKey: {
-          name: "bussinessId",
-          field: "bussinessId",
-        },
-        as: "bussiness",
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-      });
     }
   }
 
@@ -38,30 +29,8 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: null,
         defaultValue: DataTypes.UUIDV4,
       },
-      entryTime: {
-        type: DataTypes.TIME,
-        allowNull: false,
-      },
-      departureTime: {
-        type: DataTypes.TIME,
-        allowNull: true,
-      },
-      date: {
-        type: DataTypes.DATE,
-        allowNull: true,
-      },
-      timeDiff: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      startTime: {
-        type: DataTypes.TIME,
-        allowNull: true, 
-      },
-      endTime: {
-        type: DataTypes.TIME,
-        allowNull: true,
-      }
+      createdAt: DataTypes.DATE,
+      updatedAt: DataTypes.DATE,
     },
     {
       sequelize,

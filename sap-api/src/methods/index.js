@@ -56,12 +56,15 @@ export const Methods = {
       data: null,
       token: null
     };
-    const { firstName, user, password } = req.body;
+    const { firstName, username, password, email, bussinessId, surName } = req.body;
     try {
       const userData = await db.User.create({
         firstName,
-        user,
-        password
+        username,
+        password,
+        email,
+        bussinessId,
+        surName
       });
       RESPONSE.error = false;
       RESPONSE.msg = `Registro de usuario ${userData.user} Exitoso`;

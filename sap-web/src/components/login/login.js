@@ -8,6 +8,12 @@ import Button from "@material-ui/core/Button";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 import Alert from "../Alert";
 import Loading from "../../stores/loadingContainer";
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import { Typography } from "@material-ui/core";
+import Paper from '@material-ui/core/Paper';
+import UserStore from "../../stores/userState";
+
 
 const useStyles = makeStyles((theme) => ({
   margin: {
@@ -16,12 +22,19 @@ const useStyles = makeStyles((theme) => ({
   button: {
     margin: theme.spacing(1),
   },
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  paper: {
+    padding: 10,
+  },
 }));
 
 export default function Login() {
   const [form, setForm] = useState({ username: "", password: "" });
   const [formError, setFormError] = useState({ username: "", password: "" });
   const [failed, setFailed] = useState(null);
+  const userState = UserStore.useContainer()
   let loading = Loading.useContainer();
 
   const handleSubmit = async (event) => {
@@ -54,7 +67,7 @@ export default function Login() {
           setFailed("no");
         }
         resetForm();
-        localStorage.setItem("token", resp.data.token);
+        userState.login(resp.data.token);
         window.location.reload();
       } catch (error) {
         setFailed("yes");
@@ -90,11 +103,21 @@ export default function Login() {
   };
 
   return (
+
     <>
+      <AppBar position="static" className={classes.appBar}>
+        <Toolbar>
+        <Typography variant="h4" noWrap>
+            Control de Asistencias
+          </Typography>
+        </Toolbar>
+      </AppBar>
+
       <div>
         {failed === "no" && <Alert color="#038DEF">¡Bienvenido!</Alert>}
         {failed === "yes" && <Alert color="#980d14">¡Error!</Alert>}
       </div>
+      <Paper elevation={4} className={classes.paper}>
       <form
         onSubmit={handleSubmit}
         className={classes.root}
@@ -148,6 +171,8 @@ export default function Login() {
         </Button>
       </div>
       </form>
+      </Paper>
+      
     </>
   );
 }

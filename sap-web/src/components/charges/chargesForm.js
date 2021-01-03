@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import axios from "axios";
-import { baseURL } from "../../utils/axios";
+import axios from "../../utils/axios";
 import { Button, FormHelperText } from "@material-ui/core";
 import Alert from "../Alert";
 import Loading from "../../stores/loadingContainer";
@@ -57,7 +56,7 @@ export default function ChargesForm() {
       console.log(form);
       try {
         loading.start();
-        const resp = await axios.post(baseURL + "/position", data);
+        const resp = await axios.post("/position", data);
         if (resp.data.error) {
           setFailed(resp.data.error ? "yes" : "no");
           console.log("Mensaje de error");

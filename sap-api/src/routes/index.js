@@ -8,7 +8,7 @@ const router = Router();
 router.post("/auth/register", auth, Methods.register);
 router.post("/auth/login", Methods.login);
 //---Users routes
-router.get("/sign/:identification", auth, Methods.sign);
+router.get("/sign/:identification", Methods.sign);
 
 //---Users routes
 router.get("/user", auth, Methods.users);
