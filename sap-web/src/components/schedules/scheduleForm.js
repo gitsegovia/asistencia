@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import axios from "axios";
+import customAxios from "../../utils/axios";
 import { baseURL } from "../../utils/axios";
 import {
   Button,
@@ -76,7 +76,7 @@ export default function ScheduleForm() {
       console.log(form);
       try {
         loading.start();
-        const resp = await axios.post(baseURL + "/schedule", data);
+        const resp = await customAxios.post("/schedule", data);
         if (resp.data.error) {
           setFailed(resp.data.error ? "yes" : "no");
           console.log("Mensaje de error");

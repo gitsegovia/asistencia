@@ -27,7 +27,18 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
- 
+      Employee.belongsToMany(models.Schedule, {
+        through: "EmployeeSchedule",
+        foreignKey: {
+          name: "employeeId",
+          field: "employeeId",
+        },
+        otherKey: {
+          field: "scheduleId",
+          name: "scheduleId",
+        },
+        as: "schedules",
+      });
       Employee.hasMany(models.Assists, {
         foreignKey: {
           name: "employeeId",
@@ -68,14 +79,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
-  /* --------------------------------------------
+      /* --------------------------------------------
     STATUS: [Active, Inactive, Suspended]
   --------------------------------------------- */
       status: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: "Active"
-      }
+        defaultValue: "Active",
+      },
     },
     {
       sequelize,

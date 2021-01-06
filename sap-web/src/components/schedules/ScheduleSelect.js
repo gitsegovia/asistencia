@@ -189,13 +189,13 @@ export default function ScheduleSelect({onEmployeeChange}) {
             value={dayOfWeek}
             onChange={handleChangeDay}
         >
-          <MenuItem value={0}>Lunes</MenuItem>
-          <MenuItem value={1}>Martes</MenuItem>
-          <MenuItem value={2}>Miercoles</MenuItem>
-          <MenuItem value={3}>Jueves</MenuItem>
-          <MenuItem value={4}>Viernes</MenuItem>
-          <MenuItem value={5}>Sabado</MenuItem>
-          <MenuItem value={6}>Domingo</MenuItem>
+          <MenuItem value={1}>Lunes</MenuItem>
+          <MenuItem value={2}>Martes</MenuItem>
+          <MenuItem value={3}>Miercoles</MenuItem>
+          <MenuItem value={4}>Jueves</MenuItem>
+          <MenuItem value={5}>Viernes</MenuItem>
+          <MenuItem value={6}>Sabado</MenuItem>
+          <MenuItem value={0}>Domingo</MenuItem>
         </Select>
         </FormControl>
 

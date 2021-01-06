@@ -7,9 +7,9 @@ const router = Router();
 //---AUTH routes
 router.post("/auth/register", auth, Methods.register);
 router.post("/auth/login", Methods.login);
-//---Users routes
+//---Assistance routes
 router.get("/sign/:identification", Methods.sign);
-
+router.get("/assistances-of-date/:date/:employeeId", Methods.getAssistancesOfDay);
 //---Users routes
 router.get("/user", auth, Methods.users);
 
