@@ -16,6 +16,9 @@ import DirectionsWalkIcon from "@material-ui/icons/DirectionsWalk";
 import MeetingRoomIcon from '@material-ui/icons/MeetingRoom';
 import { useHistory } from "react-router-dom";
 import moment from "moment";
+import { Button} from "@material-ui/core";
+import { Link } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -111,6 +114,7 @@ export default function AssistsAA() {
                       <MeetingRoomIcon />
                         <DirectionsWalkIcon
                           style={{ transform: "rotate(-360deg) scaleX(-1)" }}
+                          //style={{ color: green[500] }}
                         />
                       </>
                     )}
@@ -120,6 +124,11 @@ export default function AssistsAA() {
             </TableBody>
           </Table>
         </TableContainer>
+      </Grid>
+      <Grid>
+      <Link to={{pathname: "/listado-de-asistencias"}}>
+                    <Button color="primary" variant="contained">Atras</Button>
+                  </Link>
       </Grid>
     </Grid>
   );

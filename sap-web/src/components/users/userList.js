@@ -69,7 +69,6 @@ export default function UserList() {
             <StyledTableCell align="center">Usuario</StyledTableCell>
             <StyledTableCell align="center">Nombre</StyledTableCell>
             <StyledTableCell align="center">Apellido</StyledTableCell>
-            <StyledTableCell align="center">Contraseña</StyledTableCell>
             <StyledTableCell align="center">Correo</StyledTableCell>
             <StyledTableCell align="center">Opciones</StyledTableCell>
           </TableRow>
@@ -85,9 +84,6 @@ export default function UserList() {
               </StyledTableCell>
               <StyledTableCell align="center" component="th" scope="row">
                 {row.surName}
-              </StyledTableCell>
-              <StyledTableCell align="center" component="th" scope="row">
-                {row.password}
               </StyledTableCell>
               <StyledTableCell align="center" component="th" scope="row">
                 {row.email}

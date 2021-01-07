@@ -117,12 +117,6 @@ export default function AppBarPr() {
           children: [],
         },
         {
-          title: "Assists",
-          path: "/listado-de-assists",
-          icon: <HowToRegIcon/>,
-          children: [],
-        },
-        {
           title: "Crear",
           path: "/creacion-de-empleados",
           icon: <AddBox />,
