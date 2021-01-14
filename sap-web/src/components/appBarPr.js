@@ -42,8 +42,7 @@ import UserForm from "./users/userForm"
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import UserStore from "../stores/userState";
-import HowToRegIcon from '@material-ui/icons/HowToReg';
-import AssistsAA from "./employee/assistsAA";
+
 
 const drawerWidth = 240;
 
@@ -108,12 +107,6 @@ export default function AppBarPr() {
           title: "Listar",
           path: "/listado-de-empleados",
           icon: <ListAltOutlined />,
-          children: [],
-        },
-        {
-          title: "Asistencias",
-          path: "/listado-de-asistencias",
-          icon: <HowToRegIcon/>,
           children: [],
         },
         {
@@ -305,14 +298,11 @@ export default function AppBarPr() {
             <Route exact path="/creacion-de-empleados">
               <EmployeeForm />
             </Route>
-            <Route exact path= "/listado-de-asistencias">
-              <Assists/>
-            </Route>
             <Route exact path="/creacion-de-empresas">
               <BussinessForm />
             </Route>
-            <Route exact path="/listado-de-assists">
-              <AssistsAA/>
+            <Route exact path="/listado-de-asistencia">
+              <Assists/>
             </Route>
             <Route exact path="/creacion-de-cargos">
               <ChargesForm />
