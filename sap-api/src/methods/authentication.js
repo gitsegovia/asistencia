@@ -4,12 +4,12 @@ import jwt from 'jsonwebtoken'
 
 export const AuthenticationMethods = { 
     login: async (req, res) => {
-        const {username, password} = req.body;
-        const user = await db.User.findOne({where: {username: username}});
+        const {username, password, module} = req.body;
+        let user = await db.User.findOne({where: {username: username}});
         if(!user) res.json({error: "Usuario no encontrado"})
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if(!isPasswordValid) res.json({error: "Contraseña invalida"})
-        const token = jwt.sign(JSON.stringify(user), process.env.JWT_SECRET);
+        const token = jwt.sign(JSON.stringify({...user, module}), process.env.JWT_SECRET);
         res.json({token, message: "Autenticado"})
     },
     register: async (req, res) => {

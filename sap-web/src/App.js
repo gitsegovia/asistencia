@@ -13,7 +13,7 @@ function App() {
   return (
       <Loading.Provider>
         <Router>
-          {userState.user ? <SapAppBarPr /> : <Login />}
+          {userState.user ? <SapAppBarPr /> : <Login module="Asissts" />}
         </Router>
       </Loading.Provider>
   );

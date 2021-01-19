@@ -10,7 +10,12 @@ auth.use((req, res, next) => {
         if (err) {
           return res.status(401).json({ mensaje: 'Token invalido' });    
         } else {
-          req.decoded = decoded;    
+          req.decoded = decoded;
+          const module = req.decoded.module;
+          console.log(req.decoded);
+          if(!checkLoginType(module, req.url)){
+            return res.status(403).json({ mensaje: 'Permiso denegado' });  
+          }          
           next();
         }
       });
@@ -22,3 +27,16 @@ auth.use((req, res, next) => {
  });
 
  export default auth;
+
+ const allowedUrlForLoginAssits = ["/sign/"];
+
+
+ function checkLoginType(module, url)
+ {
+  console.log({module, url})
+  if(module === 'Asissts'){
+    return allowedUrlForLoginAssits.includes(url.replace(/\d+/g, ""));
+  } else {
+    return true;
+  }
+ }

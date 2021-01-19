@@ -319,6 +319,9 @@ export default function AppBarPr() {
             <Route exact path="/listar-usuario">
               <UserList/>
             </Route>
+            <Route exact path="/admin-login">
+              <Login module="admin" />
+            </Route>
           </Switch>
         </Paper>
       </main>
