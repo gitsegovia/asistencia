@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Login() {
+export default function Login({module}) {
   const [form, setForm] = useState({ username: "", password: "" });
   const [formError, setFormError] = useState({ username: "", password: "" });
   const [failed, setFailed] = useState(null);
@@ -55,6 +55,7 @@ export default function Login() {
 
     let data = {
       ...form,
+      module
     };
     if (submit) {
       try {

@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
           name: "employeeId",
           field: "employeeId",
         },
-        as: "Employees",
+        as: "employee",
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
       });
@@ -28,6 +28,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.UUID,
         allowNull: null,
         defaultValue: DataTypes.UUIDV4,
+      },
+      entryTime: {
+        type: DataTypes.TIME,
+        allowNull: null,
+      },
+      departureTime: {
+        type: DataTypes.TIME,
+        allowNull: null,
       },
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,

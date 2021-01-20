@@ -20,6 +20,7 @@ import GroupIcon from '@material-ui/icons/Group';
 import { Switch, Route, Link } from "react-router-dom";
 import EmployeeForm from "./employee/employeeForm";
 import EmployeeList from "./employee/employeeList";
+import Assists from "./employee/assists";
 import BussinessList from "./bussiness/bussinessList";
 import BussinessForm from "./bussiness/bussinessForm";
 import ChargesList from "./charges/chargesList";
@@ -36,10 +37,12 @@ import Identification from "./principal/identification";
 import ScheduleSelect from "./schedules/ScheduleSelect";
 import EmployeeSchedule from "./schedules/employeeSchedule";
 import Login from "./login/login";
+import UserList from "./users/userList"
 import UserForm from "./users/userForm"
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import UserStore from "../stores/userState";
+
 
 const drawerWidth = 240;
 
@@ -202,6 +205,12 @@ export default function AppBarPr() {
       icon: <AccountCircleIcon/>,
       children: [
         {
+          title: "Listar",
+          path: "/listar-usuario",
+          icon: <ListAltOutlined/>,
+          children: [],
+        },
+        {
           title: "Registrar",
           path: "/crear-usuario",
           icon: <PersonAddIcon/>,
@@ -292,6 +301,9 @@ export default function AppBarPr() {
             <Route exact path="/creacion-de-empresas">
               <BussinessForm />
             </Route>
+            <Route exact path="/listado-de-asistencia">
+              <Assists/>
+            </Route>
             <Route exact path="/creacion-de-cargos">
               <ChargesForm />
             </Route>
@@ -303,6 +315,12 @@ export default function AppBarPr() {
             </Route>
             <Route exact path="/crear-usuario">
               <UserForm />
+            </Route>
+            <Route exact path="/listar-usuario">
+              <UserList/>
+            </Route>
+            <Route exact path="/admin-login">
+              <Login module="admin" />
             </Route>
           </Switch>
         </Paper>

@@ -1,6 +1,7 @@
 import db from '../models'
 import {AssistanceMethods} from './assistance';
 import { AuthenticationMethods } from './authentication';
+import { RolePermit } from './rolePermit';
 import { ScheduleMethods } from './schedule';
 
 export const Methods = {
@@ -10,6 +11,7 @@ export const Methods = {
   ...AssistanceMethods,  
   //--- Employee Methods
   ...ScheduleMethods,
+  ...RolePermit,
   //--- Methods User 
   users: async function (req, res) {
     let RESPONSE = {

@@ -8,6 +8,7 @@ import { Button, FormHelperText } from "@material-ui/core";
 import Alert from "../Alert";
 import customAxios from "../../utils/axios";
 import Loading from "../../stores/loadingContainer";
+import { useHistory } from "react-router-dom";
 
 
 
@@ -34,6 +35,10 @@ const useStyles = makeStyles((theme) => ({
 export default function ScheduleSelect({onEmployeeChange}) {
   let loading = Loading.useContainer();
 
+  const history = useHistory();
+  const row = history.location.state;
+
+
     const [form, setForm] = useState({
       employeeId: "",
       scheduleId: "",
@@ -47,7 +52,8 @@ export default function ScheduleSelect({onEmployeeChange}) {
     });
 
     const [dayOfWeek, setDayOfWeek] = React.useState('');
-    const classes = useStyles();      
+    const classes = useStyles();   
+    const [defaultEmployee,setDefaultEmployee] = useState(row ? [row] : []);   
     const [renderEmployee, setRenderEmployee] = useState([]);
     const [renderSchedule, setRenderSchedule] = useState([]);
     const [failed, setFailed] = useState(null); //--- Maneja el error del form
@@ -138,7 +144,22 @@ export default function ScheduleSelect({onEmployeeChange}) {
     useEffect(() => {
       consultaBDEmployee();
       consultaBDSchedule();
+      console.log(row);
     }, []);
+
+    useEffect(() => {
+      if (row) {
+        const name = row.name;
+      const value = row.id;
+      setForm({
+        employeeId: value,
+        scheduleId: "",
+        dayOfWeek: "",
+      })
+      onEmployeeChange(value);
+      }
+      console.log(row)
+    }, [row]);
 
     const handleChangeDay = (event) => {
       setForm({...form, dayOfWeek: event.target.value});
@@ -189,13 +210,13 @@ export default function ScheduleSelect({onEmployeeChange}) {
             value={dayOfWeek}
             onChange={handleChangeDay}
         >
-          <MenuItem value={0}>Lunes</MenuItem>
-          <MenuItem value={1}>Martes</MenuItem>
-          <MenuItem value={2}>Miercoles</MenuItem>
-          <MenuItem value={3}>Jueves</MenuItem>
-          <MenuItem value={4}>Viernes</MenuItem>
-          <MenuItem value={5}>Sabado</MenuItem>
-          <MenuItem value={6}>Domingo</MenuItem>
+          <MenuItem value={1}>Lunes</MenuItem>
+          <MenuItem value={2}>Martes</MenuItem>
+          <MenuItem value={3}>Miercoles</MenuItem>
+          <MenuItem value={4}>Jueves</MenuItem>
+          <MenuItem value={5}>Viernes</MenuItem>
+          <MenuItem value={6}>Sabado</MenuItem>
+          <MenuItem value={0}>Domingo</MenuItem>
         </Select>
         </FormControl>
 

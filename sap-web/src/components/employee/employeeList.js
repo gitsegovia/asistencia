@@ -11,6 +11,11 @@ import axios, { baseURL }  from "../../utils/axios";
 import DeleteButton from "../funtions/deleteButton";
 import Loading from '../../stores/loadingContainer';
 import Alert from "../Alert";
+import { fade, InputBase } from "@material-ui/core";
+import { Button } from "@material-ui/core";
+import { Link } from "react-router-dom";
+import AssignmentIcon from '@material-ui/icons/Assignment';
+import ScheduleIcon from '@material-ui/icons/Schedule';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -52,16 +57,35 @@ function createData(
   };
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme)=>({
   table: {
     minWidth: 700,
   },
-});
+  search: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(5),
+      width: "auto",
+    },
+  },
+  inputRoot: {
+    color: "inherit",
+  },
+}));
 
 export default function EmployeeList() {
   const classes = useStyles();
   const [employees, setEmployees] = useState([]);
   const [alertDelete, setAlertDelete] = useState(null);
+  const [filteredEmployees, setFilteredEmployees] = useState([]); 
   let loading = Loading.useContainer(); //Variable que guarda el Loading
 
   useEffect(() => {
@@ -70,15 +94,41 @@ export default function EmployeeList() {
       .get(baseURL + "/employee")
       .then((response) => {
         setEmployees(response.data.data);
+        setFilteredEmployees(response.data.data);
       })
       .catch((err) => console.log(err))
       .finally(() => loading.stop()); // Finaliza el loading
   }, []);
 
+  const search = (word) => {
+    if (word !== "") {
+      setFilteredEmployees(
+        employees.filter((employee) => {
+          const { firstName, surname, identification } = employee;
+          const searchIn = `${firstName} ${surname} ${identification}`;
+          return searchIn.toLowerCase().includes(word.toLowerCase());
+        })
+      );
+    } else {
+      setFilteredEmployees(employees);
+    }
+  };
+
   return (
     <>
       {alertDelete === 'yes' && <Alert color="#038DEF">¡Registro Eliminado!</Alert>}
       {alertDelete === 'no' && <Alert color="#980d14">¡Error al Eliminar Registro!</Alert>}
+      <div className={classes.search}>
+        <InputBase
+          placeholder="Buscar... 🔎"
+          onKeyUp={(v) => search(v.target.value)}
+          classes={{
+            root: classes.inputRoot,
+            input: classes.inputInput,
+          }}
+          inputProps={{ "aria-label": "search" }}
+        />
+      </div>
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
@@ -94,7 +144,7 @@ export default function EmployeeList() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {employees.map((row) => (
+          {filteredEmployees.map((row) => (
             <StyledTableRow key={row.id}>
               <StyledTableCell align="center" component="th" scope="row">
                 {row.firstName}
@@ -119,6 +169,12 @@ export default function EmployeeList() {
                     setAlertDelete(null);
                   }, 1500)
                 }} />
+                <Link to={{pathname: "/listado-de-asistencia", state: row}}>
+                    <Button><AssignmentIcon/></Button>
+                  </Link>
+                  <Link to={{pathname: "/seleccion-horarios", state: {...row, hidden: false}  }}>
+                    <Button><ScheduleIcon/></Button>
+                  </Link>
               </StyledTableCell>
             </StyledTableRow>
           ))}

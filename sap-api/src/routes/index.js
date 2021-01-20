@@ -2,13 +2,18 @@ import { Router } from "express";
 import { Methods } from "../methods";
 import auth from "../middleware/auth";
 
+
 const router = Router();
 
 //---AUTH routes
 router.post("/auth/register", auth, Methods.register);
 router.post("/auth/login", Methods.login);
-//---Users routes
-router.get("/sign/:identification", Methods.sign);
+//---Assistance routes
+router.get("/sign/:identification",auth, Methods.sign);
+router.get("/assistances-of-date/:date/:employeeId", Methods.getAssistancesOfDay);
+
+//--- RolePermit
+router.post("/rolePermit", Methods.createRolePermit);
 
 //---Users routes
 router.get("/user", auth, Methods.users);

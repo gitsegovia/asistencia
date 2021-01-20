@@ -8,7 +8,6 @@ export const ScheduleMethods = {
             include: ["schedules"],
           });
           res.json({ schedules });
-                
       } catch (error) {
         res.status(500).json({error: error.toString()});          
       }
