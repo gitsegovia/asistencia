@@ -11,16 +11,6 @@ function App() {
   const userState = UserStore.useContainer();
 
   return (
-<<<<<<< HEAD
-
-    <Loading.Provider>
-      <Router>
-        <SapAppBarPr />
-      </Router>
-    </Loading.Provider>
-
-  )}
-=======
       <Loading.Provider>
         <Router>
           {userState.user ? <SapAppBarPr /> : <Login />}
@@ -28,6 +18,5 @@ function App() {
       </Loading.Provider>
   );
 }
->>>>>>> 23fcebc3f9809d03658b5f15a658376c9c169634
 
 export default App;
