@@ -19,6 +19,13 @@ router.get("/permit/:permitId", Methods.permitId);
 router.put("/permit/:permitId", Methods.updatePermit);
 router.delete("/permit/:permitId", Methods.deletePermit);
 
+//--- Module
+router.post("/module", Methods.createModule);
+router.get("/module", Methods.modules);
+router.get("/module/:moduleId", Methods.moduleId);
+router.put("/module/:moduleId", Methods.updateModule);
+router.delete("/module/:moduleId", Methods.deleteModule);
+
 //--- RolePermit
 router.post("/rolePermit", Methods.createRolePermit);
 router.get("/rolePermit", Methods.rolePermit);

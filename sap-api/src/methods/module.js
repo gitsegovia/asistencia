@@ -1,8 +1,8 @@
 import db from "../models";
 
 
-export const Permit = {
-    permit: async function (req, res) {
+export const Module = {
+    modules: async function (req, res) {
         let RESPONSE = {
           error: false,
           msg: "",
@@ -10,12 +10,10 @@ export const Permit = {
           token: null
         };
         try {
-          let permit = await db.Permit.findAll({
-            group: ['module']
-          });
+          let module = await db.Module.findAll({});
           RESPONSE.error = false;
-          RESPONSE.msg = "Busqueda de permit Exitosa";
-          RESPONSE.data = permit;
+          RESPONSE.msg = "Busqueda de Modulos Exitosa";
+          RESPONSE.data = module;
           res.json(RESPONSE);
         } catch (error) {
           RESPONSE.error = true;
@@ -23,7 +21,7 @@ export const Permit = {
           res.status(500).json(RESPONSE);
         }
       },
-      permitId: async function (req, res) {
+      moduleId: async function (req, res) {
         let RESPONSE = {
           error: false,
           msg: "",
@@ -31,10 +29,10 @@ export const Permit = {
           token: null
         };
         try {
-          let permitId = await db.Permit.findAll({ where: { id: req.params.permitId } });
+          let moduleId = await db.Module.findAll({ where: { id: req.params.moduleId } });
           RESPONSE.error = false;
           RESPONSE.msg = "Busqueda Exitosa";
-          RESPONSE.data = permitId;
+          RESPONSE.data = moduleId;
           res.json(RESPONSE);
         } catch (error) {
           RESPONSE.error = true;
@@ -42,19 +40,19 @@ export const Permit = {
           res.status(500).json(RESPONSE);
         }
       },
-      createPermit: async function (req, res) {
+      createModule: async function (req, res) {
         let RESPONSE = {
           error: false,
           msg: "",
           data: null,
           token: null
         };
-        const { name, module } = req.body;
+        const { name } = req.body;
         try {
-          const permitData = await db.Permit.create({name, module});
+          const moduleData = await db.Module.create({name});
           RESPONSE.error = false;
-          RESPONSE.msg = `Registro de permiso ${permitData.name} Exitoso`;
-          RESPONSE.data = permitData;
+          RESPONSE.msg = `Registro de modulo ${moduleData.name} Exitoso`;
+          RESPONSE.data = moduleData;
           res.json(RESPONSE);
         } catch (error) {
           RESPONSE.error = true;
@@ -62,7 +60,7 @@ export const Permit = {
           res.status(500).json(RESPONSE);
         }
       },
-      updatePermit: async function (req, res) {
+      updateModule: async function (req, res) {
         let RESPONSE = {
           error: false,
           msg: "",
@@ -71,18 +69,16 @@ export const Permit = {
         };
         const {
           name,
-          module
         } = req.body;
-        const { id: permitId } = req.params;
+        const { id: moduleId } = req.params;
         try {
-          const permitData = await db.Permit.findOne({ where: { id } });
-          if (permitData) {
-            permitData.name = name;
-            permitData.module = module;
-            await permitData.save();
+          const moduleData = await db.Module.findOne({ where: { id } });
+          if (moduleData) {
+            moduleData.name = name;
+            await moduleData.save();
             RESPONSE.error = false;
-            RESPONSE.msg = `Permiso ${permitData.id} fue actualizado`;
-            RESPONSE.data = permitData;
+            RESPONSE.msg = `Modulo ${moduleData.id} fue actualizado`;
+            RESPONSE.data = moduleData;
             res.json(RESPONSE);
           }
         } catch (error) {
@@ -91,7 +87,7 @@ export const Permit = {
           res.status(500).json(RESPONSE);
         }
       },
-      deletePermit: async function (req, res) {
+      deleteModule: async function (req, res) {
         let RESPONSE = {
           erro: false,
           msg: "",
@@ -99,10 +95,10 @@ export const Permit = {
           token: null
         };
         try {
-          const permit = await db.Permit.findOne({ where: { id: req.params.permitId } });
-          const deletedPermit = await permit.destroy();
+          const module = await db.Module.findOne({ where: { id: req.params.moduleId } });
+          const deletedModule = await module.destroy();
           RESPONSE.error = false;
-          RESPONSE.msg = `Permiso ${permit.name} fue eliminado exitosamente`
+          RESPONSE.msg = `Module ${module.name} fue eliminado exitosamente`
           res.json(RESPONSE);
         } catch (error) {
           RESPONSE.error = true,

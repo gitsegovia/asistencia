@@ -41,9 +41,11 @@ import UserList from "./users/userList"
 import UserForm from "./users/userForm"
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import UserStore from "../stores/userState";
 import PermitForm from "./permit/permitForm";
-import PermitList from "./permit/permitList"
+import PermitList from "./permit/permitList";
+import PermitListA from "./permit/permtListA";
 
 
 const drawerWidth = 240;
@@ -193,6 +195,7 @@ export default function AppBarPr() {
           icon: <ListAltOutlined />,
           children: [],
         },
+
         {
           title: "Crear",
           path: "/creacion-de-roles",
@@ -204,7 +207,7 @@ export default function AppBarPr() {
     {
       title: "Permisos",
       path: "#",
-      icon: <AccountCircleIcon/>,
+      icon: <PermIdentityIcon/>,
       children: [
         {
         title: "Listar",
@@ -212,6 +215,12 @@ export default function AppBarPr() {
         icon: <ListAltOutlined/>,
         children: [],
         },
+        {
+          title: "Listar-A",
+          path: "/listar-permiso-a",
+          icon: <ListAltOutlined/>,
+          children: [],
+          },
         {
           title: "Registrar",
           path: "/crear-permiso",
@@ -321,6 +330,9 @@ export default function AppBarPr() {
             </Route>
             <Route exact path="/listar-permiso">
               <PermitList/>
+            </Route>
+            <Route exact path="/listar-permiso-a">
+              <PermitListA/>
             </Route>
             <Route exact path="/creacion-de-empleados">
               <EmployeeForm />

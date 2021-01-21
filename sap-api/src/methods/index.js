@@ -4,6 +4,7 @@ import { AuthenticationMethods } from './authentication';
 import { RolePermit } from './rolePermit';
 import { ScheduleMethods } from './schedule';
 import { Permit } from "./permit";
+import { Module } from "./module";
 
 export const Methods = {
   // Auth Methods
@@ -14,6 +15,7 @@ export const Methods = {
   ...ScheduleMethods,
   ...RolePermit,
   ...Permit,
+  ...Module,
   //--- Methods User 
   users: async function (req, res) {
     let RESPONSE = {
