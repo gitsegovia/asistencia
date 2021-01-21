@@ -40,18 +40,18 @@ const useStyles = makeStyles({
   },
 });
 
-export default function RolesList() {
+export default function PermitList() {
   
   const classes = useStyles();
-  const [roles, setRoles] = useState([]);
+  const [permit, setPermit] = useState([]);
   const [alertDelete, setAlertDelete] = useState(null);
   let loading = Loading.useContainer();
 
   useEffect(() => {
     loading.start();
-    axios.get(baseURL+'/roles')
+    axios.get(baseURL+'/permit')
       .then(response => {
-        setRoles(response.data.data);
+        setPermit(response.data.data);
       })
       .catch(err => console.log(err))
       .finally(()=> loading.stop());
@@ -66,19 +66,19 @@ export default function RolesList() {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <StyledTableCell align="center">Roles</StyledTableCell>
+            <StyledTableCell align="center">Permisos</StyledTableCell>
             <StyledTableCell align="center">Acciones</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {roles.map((row) => (
+          {permit.map((row) => (
             <StyledTableRow key={row.id}>
               <StyledTableCell align="center" component="th" scope="row">
                 {row.name}
               </StyledTableCell>
               <StyledTableCell align="center">
-                <DeleteButton route={'/roles/'+row.id} onDeleted={(deleted) => {
-                  setRoles(roles.filter(e => e.id !== row.id));
+                <DeleteButton route={'/permit/'+row.id} onDeleted={(deleted) => {
+                  setPermit(permit.filter(e => e.id !== row.id));
                   setAlertDelete("yes");
                   setTimeout(() => {
                     setAlertDelete(null);

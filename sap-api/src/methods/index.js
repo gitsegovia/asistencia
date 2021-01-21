@@ -3,6 +3,7 @@ import {AssistanceMethods} from './assistance';
 import { AuthenticationMethods } from './authentication';
 import { RolePermit } from './rolePermit';
 import { ScheduleMethods } from './schedule';
+import { Permit } from "./permit";
 
 export const Methods = {
   // Auth Methods
@@ -12,6 +13,7 @@ export const Methods = {
   //--- Employee Methods
   ...ScheduleMethods,
   ...RolePermit,
+  ...Permit,
   //--- Methods User 
   users: async function (req, res) {
     let RESPONSE = {
@@ -29,7 +31,7 @@ export const Methods = {
     } catch (error) {
       RESPONSE.error = true;
       RESPONSE.msg = error.toString();
-      res.json(RESPONSE);
+      res.status(500).json(RESPONSE);
     }
   },
   userId: async function (req, res) {
@@ -165,7 +167,7 @@ export const Methods = {
     } catch (error) {
       RESPONSE.error = true;
       RESPONSE.msg = error.toString();
-      res.json(RESPONSE);
+      res.status(500).json(RESPONSE);
     }
   },
   createRole: async function (req, res) {
@@ -175,12 +177,9 @@ export const Methods = {
       data: null,
       token: null
     };
-    const { name, permit } = req.body;
+    const { name } = req.body;
     try {
-      const roleData = await db.Role.create({
-        name,
-        permit
-      });
+      const roleData = await db.Role.create({name});
       RESPONSE.error = false;
       RESPONSE.msg = `Resgistro de rol ${roleData.name} exitoso`;
       RESPONSE.data = roleData;
@@ -188,7 +187,7 @@ export const Methods = {
     } catch (error) {
       RESPONSE.error = true;
       RESPONSE.msg = error.toString();
-      res.json(RESPONSE);
+      res.status(500).json(RESPONSE);
     }
   },
   updateRole: async function (req, res) {
@@ -198,18 +197,17 @@ export const Methods = {
       data: null,
       token: null
     };
-    const { name, permit } = req.body;
+    const { name } = req.body;
     const id = req.params.roleId;
     try {
       const roleData = await db.Role.findOne({ where: { id } });
       if (roleData) {
         roleData.name = name;
-        roleData.permit = permit;
         await roleData.save();
         RESPONSE.error = false;
         RESPONSE.msg = `Role ${roleData.id} fue actualizado`;
         RESPONSE.data = roleData;
-        res.json(RESPONSE);
+        res.status(500).json(RESPONSE);
       }
     } catch (error) {
       RESPONSE.error = true;

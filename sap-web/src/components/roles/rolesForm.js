@@ -28,8 +28,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function RolesForm() {
-  const [form, setForm] = useState({ name: '', permit: ''})
-  const [formError, setFormError] = useState({ name: '', permit: ''});
+  const [form, setForm] = useState({ name: ''})
+  const [formError, setFormError] = useState({ name: ''});
  const [bussiness, setBussiness] = useState('');
   const [failed, setFailed] = useState(null);
   let loading = Loading.useContainer();
@@ -39,7 +39,6 @@ export default function RolesForm() {
     let submit = true;
     const errors = {
       name: (form.name!=='') ? '' : 'Ingrese su nombre',
-      permit: (form.permit!=='' ? '' : 'Ingrese permiso')
     }
 
     setFormError({
@@ -80,11 +79,9 @@ export default function RolesForm() {
   const resetForm = () => {
     setForm({
       name: '',
-      permit: ''
     });
     setFormError({
       name: '',
-      permit: ''
     });
   }
 
@@ -126,18 +123,6 @@ export default function RolesForm() {
         onChange={handleChange}
         error={form.name==='' && formError.name}
         helperText={formError.name}
-      />
-      <TextField
-        id="permit"
-        name="permit"
-        label="Permiso"
-        variant="outlined"
-        size="small"
-        required
-        value={form.permit}
-        onChange={handleChange}
-        error={form.permit ==='' && formError.permit}
-        helperText={formError.permit}
       />
       
       <Button type="submit" onClick={(e) => handleSubmit(e)}>

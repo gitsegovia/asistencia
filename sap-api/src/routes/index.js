@@ -12,8 +12,19 @@ router.post("/auth/login", Methods.login);
 router.get("/sign/:identification",auth, Methods.sign);
 router.get("/assistances-of-date/:date/:employeeId", Methods.getAssistancesOfDay);
 
+//--- Permit
+router.post("/permit", Methods.createPermit);
+router.get("/permit", Methods.permit);
+router.get("/permit/:permitId", Methods.permitId);
+router.put("/permit/:permitId", Methods.updatePermit);
+router.delete("/permit/:permitId", Methods.deletePermit);
+
 //--- RolePermit
 router.post("/rolePermit", Methods.createRolePermit);
+router.get("/rolePermit", Methods.rolePermit);
+router.get("/rolePermit/:rolePermitId", Methods.rolePermitId);
+router.put("/rolePermit/: rolePermitId", Methods.updateRolePermit);
+router.delete("/rolePermit/:rolePermitId", Methods.deleteRolePermit);
 
 //---Users routes
 router.get("/user", auth, Methods.users);
@@ -129,14 +140,14 @@ router.delete("/position", (req, res) => {
 router.delete("/position/:positionId", auth, Methods.deletePosition);
 
 //---Roles routes
-router.get("/roles", auth, Methods.roles);
+router.get("/roles", Methods.roles);
 
-router.get("/roles/:roleId", auth, Methods.roleId);
+router.get("/roles/:roleId", Methods.roleId);
 
-router.put("/roles/:roleId", auth, Methods.updateRole);
+router.put("/roles/:roleId", Methods.updateRole);
 
-router.post("/roles", auth, Methods.createRole);
+router.post("/roles", Methods.createRole);
 
-router.delete("/roles/:roleId", auth, Methods.deleteRole);
+router.delete("/roles/:roleId", Methods.deleteRole);
 
 module.exports = router;

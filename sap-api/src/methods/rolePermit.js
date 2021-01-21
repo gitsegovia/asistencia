@@ -97,7 +97,7 @@ export const RolePermit = {
           token: null
         };
         try {
-          const role = await db.RolePermit.findOne({ where: { id: req.params.roleId } });
+          const role = await db.RolePermit.findOne({ where: { id: req.params.rolePermitId } });
           await role.destroy();
           RESPONSE.error = false;
           RESPONSE.msg = `role ${role.name} fue eliminado exitosamente`
