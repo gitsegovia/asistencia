@@ -10,9 +10,7 @@ export const Permit = {
           token: null
         };
         try {
-          let permit = await db.Permit.findAll({
-            group: ['module']
-          });
+          let permit = await db.Permit.findAll();
           RESPONSE.error = false;
           RESPONSE.msg = "Busqueda de permit Exitosa";
           RESPONSE.data = permit;
@@ -49,9 +47,9 @@ export const Permit = {
           data: null,
           token: null
         };
-        const { name, module } = req.body;
+        const { name, moduleId } = req.body;
         try {
-          const permitData = await db.Permit.create({name, module});
+          const permitData = await db.Permit.create({name, moduleId});
           RESPONSE.error = false;
           RESPONSE.msg = `Registro de permiso ${permitData.name} Exitoso`;
           RESPONSE.data = permitData;

@@ -11,13 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
       Module.hasMany(models.Permit, {
         foreignKey: {
-          name: "permitId",
-          field: "permitId",
-        },
-        otherKey: {
-          field: "permitId",
-          name: "permitId",
-        },
+          name: "moduleId",
+          field: "moduleId",
+        },  
         as: "permits",
       });
     }

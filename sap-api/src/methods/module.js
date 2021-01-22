@@ -10,7 +10,7 @@ export const Module = {
           token: null
         };
         try {
-          let module = await db.Module.findAll({});
+          let module = await db.Module.findAll({include: ["permits"]});
           RESPONSE.error = false;
           RESPONSE.msg = "Busqueda de Modulos Exitosa";
           RESPONSE.data = module;
