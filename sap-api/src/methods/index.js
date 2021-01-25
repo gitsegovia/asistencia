@@ -358,6 +358,7 @@ export const Methods = {
       token: null
     };
     try {
+      console.log(req.decoded);
       let employee = await db.Employee.findAll({
         where: {
           bussinessId:req.decoded.bussinessId

@@ -12,7 +12,6 @@ auth.use((req, res, next) => {
         } else {
           req.decoded = decoded;
           const module = req.decoded.module;
-          console.log(req.decoded);
           if(!checkLoginType(module, req.url)){
             return res.status(403).json({ mensaje: 'Permiso denegado' });  
           }          

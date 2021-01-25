@@ -9,7 +9,7 @@ export const AuthenticationMethods = {
         if(!user) res.json({error: "Usuario no encontrado"})
         const isPasswordValid = await bcrypt.compare(password, user.password);
         if(!isPasswordValid) res.json({error: "Contraseña invalida"})
-        const token = jwt.sign(JSON.stringify({...user, module}), process.env.JWT_SECRET);
+        const token = jwt.sign(JSON.stringify({...user.dataValues, module}), process.env.JWT_SECRET);
         res.json({token, message: "Autenticado"})
     },
     register: async (req, res) => {
