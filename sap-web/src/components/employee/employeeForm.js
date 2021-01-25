@@ -10,6 +10,7 @@ import Alert from "../Alert";
 import customAxios from "../../utils/axios";
 import Loading from "../../stores/loadingContainer";
 import SingnatureCanvas from "react-signature-canvas";
+import { useHistory } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,6 +55,8 @@ export default function EmployeeForm() {
 
   let sign = null;
   let sigCanvas;
+
+  const employee = useHistory().location.state;
 
   const [renderBussiness, setRenderBussiness] = useState([]);//--Almacena la consultad e BD
   const [renderPosition, setRenderPosition] = useState([]);

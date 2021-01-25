@@ -6,6 +6,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import { IconButton } from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
 import HighlightOffRoundedIcon from "@material-ui/icons/HighlightOffRounded";
 import axios  from "../utils/axios";
 import Alert from "./Alert";
@@ -34,7 +35,7 @@ export default function DraggableDialog({ route, onDeleted, deleteFn }) {
   return (
     <div>
       <IconButton onClick={handleClickOpen}>
-        <HighlightOffRoundedIcon />
+        <DeleteIcon />
       </IconButton>
       <Dialog
         open={open}

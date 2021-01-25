@@ -16,6 +16,7 @@ import { Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import ScheduleIcon from '@material-ui/icons/Schedule';
+import EditIcon from '@material-ui/icons/Edit';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -162,19 +163,30 @@ export default function EmployeeList() {
               <StyledTableCell align="center">{row.photo}</StyledTableCell>
               <StyledTableCell align="center">{row.status}</StyledTableCell>
               <StyledTableCell align="center">
-                <DeleteButton route={'/employee/'+row.id} onDeleted={(deleted) => {
-                  setEmployees(employees.filter(e => e.id !== row.id));
-                  setAlertDelete("yes");
-                  setTimeout(() => {
-                    setAlertDelete(null);
-                  }, 1500)
-                }} />
-                <Link to={{pathname: "/listado-de-asistencia", state: row}}>
+                <div style={{display: 'flex', flexFlow: 'row' , alignContent: 'center', boxSizing: 'content-box'}}>
+                  
+                  <DeleteButton route={'/employee/'+row.id} onDeleted={(deleted) => {
+                    setEmployees(employees.filter(e => e.id !== row.id));
+                    setAlertDelete("yes");
+                    setTimeout(() => {
+                      setAlertDelete(null);
+                    }, 1500)
+                  }} />
+
+                  <Link to={{pathname: "/listado-de-asistencia", state: row}}>
                     <Button><AssignmentIcon/></Button>
                   </Link>
+
                   <Link to={{pathname: "/seleccion-horarios", state: {...row, hidden: false}  }}>
                     <Button><ScheduleIcon/></Button>
                   </Link>
+
+                  <Link to={{pathname: "/edicion-de-empleados", state: row}}>
+                    <Button><EditIcon/></Button>
+                  </Link>
+
+                </div>
+                
               </StyledTableCell>
             </StyledTableRow>
           ))}

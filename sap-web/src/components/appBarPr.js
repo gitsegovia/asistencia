@@ -325,7 +325,19 @@ export default function AppBarPr() {
             <Route exact path="/creacion-de-roles">
               <RolesForm />
             </Route>
+            <Route exact path="/edicion-de-roles">
+              <RolesForm />
+            </Route>
+            <Route exact path="/edicion-de-roles">
+              <RolesForm />
+            </Route>
             <Route exact path="/crear-permiso">
+              <PermitForm/>
+            </Route>
+            <Route exact path="/editar-permiso">
+              <PermitForm/>
+            </Route>
+            <Route exact path="/editar-permiso">
               <PermitForm/>
             </Route>
             <Route exact path="/listar-permiso">
@@ -334,10 +346,16 @@ export default function AppBarPr() {
             <Route exact path="/listar-permiso-a">
               <PermitListA/>
             </Route>
-            <Route exact path="/creacion-de-empleados">
+            <Route exact path={"/creacion-de-empleados"}>
+              <EmployeeForm />
+            </Route>
+            <Route exact path={"/edicion-de-empleados"}>
               <EmployeeForm />
             </Route>
             <Route exact path="/creacion-de-empresas">
+              <BussinessForm />
+            </Route>
+            <Route exact path="/edicion-de-empresas">
               <BussinessForm />
             </Route>
             <Route exact path="/listado-de-asistencia">
@@ -346,13 +364,22 @@ export default function AppBarPr() {
             <Route exact path="/creacion-de-cargos">
               <ChargesForm />
             </Route>
+            <Route exact path="/edicion-de-cargos">
+              <ChargesForm />
+            </Route>
             <Route exact path="/creacion-de-horarios">
+              <SchedulesForm />
+            </Route>
+            <Route exact path="/edicion-de-horarios">
               <SchedulesForm />
             </Route>
             <Route exact path="/Seleccion-horarios">
               <EmployeeSchedule />
             </Route>
             <Route exact path="/crear-usuario">
+              <UserForm />
+            </Route>
+            <Route exact path="/editar-usuario">
               <UserForm />
             </Route>
             <Route exact path="/listar-usuario">
