@@ -42,10 +42,10 @@ export default function PermitListA() {
     <div className={classes.root}>
       <Grid container spacing={3}>
         {permit.map((permisos) => (
-          <Grid item xs={12}>
+          <Grid item xs={12} spacing={3}>
             <div style={{display: 'flex', flexFlow: 'row'}} >
             {permisos.map((per) => 
-              <Button  >{per.name} </Button>
+              <Button variant="contained" color="primary">{per.name} </Button>
               )}
             </div>
           </Grid>

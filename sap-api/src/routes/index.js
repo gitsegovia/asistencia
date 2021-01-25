@@ -49,7 +49,7 @@ router.delete("/user", (req, res) => {
 router.delete("/user/:userId", auth, Methods.deleteUser);
 
 //---Employees routes
-router.get("/employee", auth, auth, Methods.employee);
+router.get("/employee", auth, Methods.employee);  
 
 router.get("/employee/:employeeId", auth, Methods.employeeId);
 

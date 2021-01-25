@@ -144,12 +144,17 @@ export default function EmployeeForm() {
   };
 
   async function consultaBasedatos() {
-    const response = await customAxios.get("/bussiness");
-    console.log(response);
-    let consulta = response.data;
-    if (consulta.error === false) {
-      setRenderBussiness(consulta.data);
+    try {
+      const response = await customAxios.get("/bussiness");
+      console.log(response);
+      let consulta = response.data;
+      if (consulta.error === false) {
+        setRenderBussiness(consulta.data);
+      }      
+    } catch (error) {
+        console.log(error);
     }
+
   }
 
   useEffect(() => {
@@ -159,12 +164,17 @@ export default function EmployeeForm() {
   //---Conexion BD de position
 
   async function consultaBDPosition() {
-    const response = await customAxios.get("/position");
-    console.log(response);
-    let consulta = response.data;
-    if (consulta.error === false) {
-      setRenderPosition(consulta.data);
+    try {
+      const response = await customAxios.get("/position");
+      console.log(response);
+      let consulta = response.data;
+      if (consulta.error === false) {
+        setRenderPosition(consulta.data);
+      }      
+    } catch (error) {
+      console.log(error);
     }
+
   }
 
   useEffect(() => {
