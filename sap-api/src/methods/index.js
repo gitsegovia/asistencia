@@ -428,7 +428,7 @@ export const Methods = {
         scheduleId: schedule,
       });
       RESPONSE.error = false;
-      RESPONSE.msg = `Registro de employee ${employeeData.firstName} Exitoso`;
+      RESPONSE.msg = `Empleado ${employeeData.firstName} registrado con exito.`;
       RESPONSE.data = employeeData;
       res.json(RESPONSE);
     } catch (error) {

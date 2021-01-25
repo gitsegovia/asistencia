@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt'
 
 //CONFIG
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3002;
 
 //Routes
 import Routes from "./routes";
