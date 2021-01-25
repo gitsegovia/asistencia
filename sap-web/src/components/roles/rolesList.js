@@ -11,6 +11,9 @@ import axios,{ baseURL } from '../../utils/axios';
 import Loading from '../../stores/loadingContainer';
 import Alert from '../Alert';
 import DeleteButton from "../funtions/deleteButton";
+import PermIdentityIcon from '@material-ui/icons/PermIdentity';
+import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
@@ -84,6 +87,8 @@ export default function RolesList() {
                     setAlertDelete(null);
                   }, 1500)
                 }} />
+                <Link to={{pathname: "/listar-permiso-a"}}></Link>
+                <Button> <PermIdentityIcon/> </Button>
               </StyledTableCell>
             </StyledTableRow>
           ))}
