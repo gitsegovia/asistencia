@@ -34,6 +34,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function EmployeeForm() {
+
+  const history = useHistory();
+  const employee = history.location.state;
+  console.log(employee)
+
   const [form, setForm] = useState({
     firstName: "",
     surname: "",
@@ -43,6 +48,9 @@ export default function EmployeeForm() {
     bussinessId: "",
     position: "",
   });
+
+  
+
   const [formError, setFormError] = useState({
     firstName: "",
     surname: "",
@@ -55,8 +63,6 @@ export default function EmployeeForm() {
 
   let sign = null;
   let sigCanvas;
-
-  const employee = useHistory().location.state;
 
   const [renderBussiness, setRenderBussiness] = useState([]);//--Almacena la consultad e BD
   const [renderPosition, setRenderPosition] = useState([]);
@@ -136,6 +142,18 @@ export default function EmployeeForm() {
   };
 
   const classes = useStyles();
+
+  useEffect(()=>{
+    setForm({
+      firstName: employee.firstName,
+      surname: employee.surname,
+      identification: employee.identification,
+      firm: employee.firm,
+      photo: employee.photo,
+      bussinessId: employee.businessId,
+      position: employee.position,
+    })
+  },[employee])
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -302,7 +320,7 @@ export default function EmployeeForm() {
           </Button>
         </div>
         <Button type="submit" onClick={(e) => handleSubmit(e)}>
-          Submit
+          { employee ? "Editar" : "Crear"}
         </Button>
       </form>
     </React.Fragment>
