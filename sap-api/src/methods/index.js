@@ -142,7 +142,12 @@ export const Methods = {
       token: null
     };
     try {
-      let roles = await db.Role.findAll();
+      let roles = await db.Role.findAll({
+        include: [{
+          model: db.Permit,
+          as: 'permits'
+        }]
+      });
       RESPONSE.error = false;
       RESPONSE.msg = "Busqueda de roles Exitosa";
       RESPONSE.data = roles;

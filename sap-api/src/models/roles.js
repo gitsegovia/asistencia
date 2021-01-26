@@ -18,6 +18,16 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
+      Role.belongsToMany(models.Permit, { 
+        foreignKey: {
+          name: "roleId",
+          field: "roleId"
+        },
+        otherKey: {
+          name: "permitId",
+          field: "permitId"
+        },
+        through: 'RolePermit', as: "permits" });
     }
   }
   Role.init(

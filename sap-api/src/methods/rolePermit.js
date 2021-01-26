@@ -2,26 +2,41 @@ import db from "../models";
 
 
 export const RolePermit = {
-    createRolePermit: async function (req, res) {
-        let RESPONSE = {
-          error: false,
-          msg: "",
-          data: null,
-          token: null
-        };
-        const {roleId, permitId} = req.body;
+    attachOrDetachPermit: async function(req, res) {
+      const {roleId, permitId} = req.body;
+
+      let RESPONSE = {
+        error: false,
+        msg: "",
+        data: null,
+        token: null
+      };
+      try {
+        const pivotEntry = await db.RolePermit.findOne({where: {
+          roleId, permitId
+        }});
+  
+        if(pivotEntry) {
+          RESPONSE.data = await RolePermit.deleteRolePermit(pivotEntry.id)        
+        } else {
+          RESPONSE.data = await RolePermit.createRolePermit(roleId, permitId);
+        }
+        res.json(RESPONSE);          
+      } catch (error) {
+        RESPONSE.error = true;
+        RESPONSE.msg = error.toString();
+        res.status(500).json(RESPONSE);
+      }
+
+    },
+    createRolePermit: async function (roleId, permitId) {
         try {
           const rolePermitData = await db.RolePermit.create({
             roleId, permitId
           });
-          RESPONSE.error = false;
-          RESPONSE.msg = `Registro de RolePermit ${rolePermitData} Exitoso`;
-          RESPONSE.data = rolePermitData;
-          res.json(RESPONSE);
+          return rolePermitData;
         } catch (error) {
-          RESPONSE.error = true;
-          RESPONSE.msg = error.toString();
-          res.json(RESPONSE);
+          throw Error(error.toString());
         }
       },
       rolePermit: async function (req, res) {
@@ -89,23 +104,12 @@ export const RolePermit = {
       },    
       //--- GRUD de udate-delete falta verificar
 
-      deleteRolePermit: async function (req, res) {
-        let RESPONSE = {
-          erro: false,
-          msg: "",
-          data: null,
-          token: null
-        };
+      deleteRolePermit: async function (rolePermitId) {
         try {
-          const role = await db.RolePermit.findOne({ where: { id: req.params.rolePermitId } });
-          await role.destroy();
-          RESPONSE.error = false;
-          RESPONSE.msg = `role ${role.name} fue eliminado exitosamente`
-          res.json(RESPONSE);
+          const rolePermit = await db.RolePermit.findOne({ where: { id: rolePermitId } });
+          return await rolePermit.destroy();
         } catch (error) {
-          RESPONSE.error = true;
-          RESPONSE.msg = error.toString();
-          res.json(RESPONSE);
+          throw Error(error.toString());
         }
       },
     

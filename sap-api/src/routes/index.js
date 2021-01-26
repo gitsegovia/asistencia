@@ -32,6 +32,7 @@ router.get("/rolePermit", Methods.rolePermit);
 router.get("/rolePermit/:rolePermitId", Methods.rolePermitId);
 router.put("/rolePermit/: rolePermitId", Methods.updateRolePermit);
 router.delete("/rolePermit/:rolePermitId", Methods.deleteRolePermit);
+router.post("/attachOrDetachPermit", Methods.attachOrDetachPermit);
 
 //---Users routes
 router.get("/user", auth, Methods.users);
