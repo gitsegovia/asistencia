@@ -111,6 +111,7 @@ export default function Login({module}) {
         <Typography variant="h4" noWrap>
             Control de Asistencias
           </Typography>
+          
         </Toolbar>
       </AppBar>
 
