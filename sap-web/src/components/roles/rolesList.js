@@ -87,8 +87,9 @@ export default function RolesList() {
                     setAlertDelete(null);
                   }, 1500)
                 }} />
-                <Link to={{pathname: "/listar-permiso-a"}}></Link>
-                <Button> <PermIdentityIcon/> </Button>
+                <Link to={{pathname: "/listar-permiso-a"}}>
+                <Button> <PermIdentityIcon/></Button>
+                </Link>
               </StyledTableCell>
             </StyledTableRow>
           ))}
