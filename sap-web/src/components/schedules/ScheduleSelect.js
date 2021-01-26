@@ -37,6 +37,7 @@ export default function ScheduleSelect({onEmployeeChange}) {
 
   const history = useHistory();
   const row = history.location.state;
+  console.log(row);
 
 
     const [form, setForm] = useState({
@@ -158,7 +159,6 @@ export default function ScheduleSelect({onEmployeeChange}) {
       })
       onEmployeeChange(value);
       }
-      console.log(row)
     }, [row]);
 
     const handleChangeDay = (event) => {
