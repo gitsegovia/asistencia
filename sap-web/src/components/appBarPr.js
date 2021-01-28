@@ -45,7 +45,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import UserStore from "../stores/userState";
 import PermitForm from "./permit/permitForm";
 import PermitList from "./permit/permitList";
-import PermitListA from "./permit/permtListA";
+import PermitListRole from "./permit/permitListRole";
 
 
 const drawerWidth = 240;
@@ -216,12 +216,6 @@ export default function AppBarPr() {
         children: [],
         },
         {
-          title: "Listar-A",
-          path: "/listar-permiso-a",
-          icon: <ListAltOutlined/>,
-          children: [],
-          },
-        {
           title: "Registrar",
           path: "/crear-permiso",
           icon: <PersonAddIcon/>,
@@ -343,8 +337,8 @@ export default function AppBarPr() {
             <Route exact path="/listar-permiso">
               <PermitList/>
             </Route>
-            <Route exact path="/listar-permiso-a">
-              <PermitListA/>
+            <Route exact path="/listar-permiso-role">
+              <PermitListRole/>
             </Route>
             <Route exact path={"/creacion-de-empleados"}>
               <EmployeeForm />

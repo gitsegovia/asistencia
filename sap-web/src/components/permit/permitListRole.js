@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PermitListA() {
+export default function PermitListRole() {
   const classes = useStyles();
   const [permit, setPermit] = useState([]);
   const history = useHistory();
@@ -47,12 +47,14 @@ export default function PermitListA() {
   return (
     <div className={classes.root}>
       
-      <Grid container spacing={3}>
-        <Grid item xs={12}>
+      <Grid container spacing={1}>
+        <Grid item xs={1}>
       <Link to={{ pathname: "/listado-de-roles" }}>
           <ArrowBackIcon />
       </Link>
-        <h2>{role.name}</h2>
+        </Grid>
+        <Grid>
+        <h2>Rol: {role.name}</h2>
         </Grid>
         {permit.map((permisos) => (
           <Grid item xs={12} spacing={3}>

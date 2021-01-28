@@ -13,6 +13,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import { Typography } from "@material-ui/core";
 import Paper from '@material-ui/core/Paper';
 import UserStore from "../../stores/userState";
+import { Link } from "react-router-dom";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Login({module}) {
   const [form, setForm] = useState({ username: "", password: "" });
   const [formError, setFormError] = useState({ username: "", password: "" });
+  const [isAdmin, setIsAdmin]= useState(false)
   const [failed, setFailed] = useState(null);
   const userState = UserStore.useContainer()
   let loading = Loading.useContainer();
@@ -102,16 +104,22 @@ export default function Login({module}) {
       [field]: value,
     });
   };
-
+  const adminBtn = () =>{
+    setIsAdmin(true);
+    console.log(isAdmin);
+  }
   return (
 
     <>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
         <Typography variant="h4" noWrap>
-            Control de Asistencias
+        {isAdmin === false && <>Control de Asistencias</>}
           </Typography>
-          
+          <span style={{flex: '1 1'}}></span>
+          <Link to={{pathname: "/admin-login"}}>
+            <Button onClick={(e)=> adminBtn }>Login Admin</Button>
+          </Link>
         </Toolbar>
       </AppBar>
 
@@ -127,7 +135,8 @@ export default function Login({module}) {
         autoComplete="off"
         style={{ backgroundColor: "#", height: "100vh" }}
       >
-      <h1> Ingrese sus Datos </h1>
+        <h1> Ingrese sus Datos </h1>
+      
       <div className={classes.margin}>
         <Grid container spacing={1} alignItems="flex-end">
           <Grid item>
